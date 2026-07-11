@@ -3,6 +3,7 @@ import { WorkspaceShell } from "@/components/shells";
 import { Badge, ButtonLink, Card, EmptyPhase, PageHeader, StatCard } from "@/components/ui";
 import { approvalRequests, delegations, actingAppointments, accessReviews } from "@/lib/authority-data";
 import { auditLogs, branches, getTenantBySlug, getTenantSubscription, invitations, memberships, organizationUnits } from "@/lib/data";
+import { getEveryPersonMattersStats } from "@/lib/people-engine";
 
 export default async function WorkspaceHomePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -11,6 +12,7 @@ export default async function WorkspaceHomePage({ params }: { params: Promise<{ 
   const tenantUnits = organizationUnits.filter((unit) => unit.tenantId === tenant.id);
   const tenantBranches = branches.filter((branch) => branch.tenantId === tenant.id);
   const subscription = getTenantSubscription(tenant.id);
+  const peopleStats = getEveryPersonMattersStats(tenant.id, "user-admin");
   return (
     <WorkspaceShell tenantName={tenant.publicName}>
       <PageHeader title={`${tenant.publicName} home`} description="Administrative setup dashboard using real tenant foundation data only. Member, giving, attendance and conversion metrics are not shown before those modules exist." actions={<Badge tone="success">{tenant.status}</Badge>} />
@@ -46,6 +48,12 @@ export default async function WorkspaceHomePage({ params }: { params: Promise<{ 
       </div>
       <div className="mt-8">
         <EmptyPhase title="Future ministry widgets" description="Visitors, follow-up, pastoral care, fellowship growth, volunteer gaps and stewardship widgets are feature-flagged for later prompts and will not display fabricated figures." />
+      </div>
+      <div className="mt-8 grid gap-4 md:grid-cols-4">
+        <StatCard label="First-time visitors" value={peopleStats.firstTimeVisitors} detail="Prompt 3 people engine." />
+        <StatCard label="New converts" value={peopleStats.newConverts} detail="Linked to follow-up." />
+        <StatCard label="Follow-up tasks" value={peopleStats.completedTasks} detail="Completed first contacts." />
+        <StatCard label="Duplicate reviews" value={peopleStats.duplicateReviews} detail="Manual review required." />
       </div>
       <Card className="mt-8">
         <h2 className="text-lg font-semibold">Recent administrative activity</h2>

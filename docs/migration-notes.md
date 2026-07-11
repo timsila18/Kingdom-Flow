@@ -12,3 +12,5 @@ Safe additions:
 - seeds additional permission catalogue rows idempotently with `on conflict`.
 
 Production rollout should run this after Prompt 1. Existing Prompt 1 tenants, invitations and audit logs remain intact.
+
+`20260711160011_people_ministry_engine.sql` adds Prompt 3 people-ministry tables. It does not duplicate tenants or auth users. It creates central people profiles, lifecycle events, households, visitor/new-convert records, follow-up assignments and tasks, consent, transfers, duplicates, imports, exports, forms, QR codes and activity signals. RLS is enabled on all new tables and public form submissions are insert-only for anonymous users.

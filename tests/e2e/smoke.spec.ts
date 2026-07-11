@@ -7,4 +7,5 @@ test("loads the landing and workspace foundation", async ({ page }) => {
   await expect(page.getByRole("heading", { name: /King's Grace home/ })).toBeVisible();
   await expect(page.getByText("Future ministry widgets")).toBeVisible();
   await expect(page.getByText("Pending role approvals")).toBeVisible();
+  await expect(page.getByText("First-time visitors")).toBeVisible();
 });

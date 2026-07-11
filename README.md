@@ -4,6 +4,10 @@ KingdomFlow is a standalone Church Ministry, Discipleship, Member Care, Growth a
 
 This repository contains Prompt 1 of 13: platform foundation, multi-tenancy, church onboarding, organizational structure, subscription foundations, audit foundations and a premium responsive design system.
 
+Prompt 2 adds dynamic roles, scoped permissions, governance, pastoral hierarchy, delegations, acting appointments and approval workflows.
+
+Prompt 3 adds the people-ministry engine: members, households, visitors, new converts, follow-up, consent, transfers, duplicates, imports, exports, public forms and QR codes.
+
 ## Stack
 
 - Next.js App Router
