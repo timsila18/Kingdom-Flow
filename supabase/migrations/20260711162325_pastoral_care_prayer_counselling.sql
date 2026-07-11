@@ -588,12 +588,12 @@ alter table case_feedback enable row level security;
 
 create policy pastoral_case_category_tenant_members
   on pastoral_case_categories for select
-  using (tenant_id in (select tenant_id from memberships where user_id = auth.uid() and status = 'active'));
+  using (tenant_id in (select tenant_id from public.tenant_memberships where user_id = auth.uid() and status = 'active'));
 
 create policy pastoral_cases_assigned_or_granted
   on pastoral_cases for select
   using (
-    tenant_id in (select tenant_id from memberships where user_id = auth.uid() and status = 'active')
+    tenant_id in (select tenant_id from public.tenant_memberships where user_id = auth.uid() and status = 'active')
     and confidentiality <> 'safeguarding'
     and (
       assigned_worker_id = auth.uid()
@@ -612,7 +612,7 @@ create policy pastoral_cases_assigned_or_granted
 
 create policy pastoral_cases_insert_active_tenant_members
   on pastoral_cases for insert
-  with check (tenant_id in (select tenant_id from memberships where user_id = auth.uid() and status = 'active'));
+  with check (tenant_id in (select tenant_id from public.tenant_memberships where user_id = auth.uid() and status = 'active'));
 
 create policy pastoral_case_related_assigned
   on pastoral_case_people for select
@@ -621,18 +621,18 @@ create policy pastoral_case_related_assigned
 create policy pastoral_assignments_assigned_users
   on pastoral_case_assignments for select
   using (
-    tenant_id in (select tenant_id from memberships where user_id = auth.uid() and status = 'active')
+    tenant_id in (select tenant_id from public.tenant_memberships where user_id = auth.uid() and status = 'active')
     and (assigned_user_id = auth.uid() or exists (select 1 from pastoral_cases c where c.id = case_id and c.supervising_pastor_id = auth.uid()))
   );
 
 create policy pastoral_access_grants_recipient
   on pastoral_case_access_grants for select
-  using (tenant_id in (select tenant_id from memberships where user_id = auth.uid() and status = 'active') and (user_id = auth.uid() or granted_by = auth.uid()));
+  using (tenant_id in (select tenant_id from public.tenant_memberships where user_id = auth.uid() and status = 'active') and (user_id = auth.uid() or granted_by = auth.uid()));
 
 create policy pastoral_notes_general_or_explicit
   on pastoral_notes for select
   using (
-    tenant_id in (select tenant_id from memberships where user_id = auth.uid() and status = 'active')
+    tenant_id in (select tenant_id from public.tenant_memberships where user_id = auth.uid() and status = 'active')
     and sensitivity not in ('safeguarding','welfare_finance','restricted','highly_confidential')
     and exists (select 1 from pastoral_cases c where c.id = case_id and (c.assigned_worker_id = auth.uid() or c.assigned_pastor_id = auth.uid() or c.supervising_pastor_id = auth.uid()))
   );
@@ -654,7 +654,7 @@ create policy pastoral_notes_explicit_grants
 create policy prayer_requests_assigned_team
   on prayer_requests for select
   using (
-    tenant_id in (select tenant_id from memberships where user_id = auth.uid() and status = 'active')
+    tenant_id in (select tenant_id from public.tenant_memberships where user_id = auth.uid() and status = 'active')
     and exists (
       select 1 from prayer_assignments a
       join prayer_teams t on t.id = a.team_id
@@ -669,31 +669,31 @@ create policy public_prayer_insert_only
 
 create policy testimonies_reviewer_only
   on testimonies for select
-  using (tenant_id in (select tenant_id from memberships where user_id = auth.uid() and status = 'active') and (reviewer_user_id = auth.uid() or person_id = auth.uid()));
+  using (tenant_id in (select tenant_id from public.tenant_memberships where user_id = auth.uid() and status = 'active') and (reviewer_user_id = auth.uid() or person_id = auth.uid()));
 
 create policy counselling_assigned_only
   on counselling_appointments for select
-  using (tenant_id in (select tenant_id from memberships where user_id = auth.uid() and status = 'active') and (assigned_counsellor_id = auth.uid() or exists (select 1 from pastoral_cases c where c.id = case_id and c.assigned_pastor_id = auth.uid())));
+  using (tenant_id in (select tenant_id from public.tenant_memberships where user_id = auth.uid() and status = 'active') and (assigned_counsellor_id = auth.uid() or exists (select 1 from pastoral_cases c where c.id = case_id and c.assigned_pastor_id = auth.uid())));
 
 create policy welfare_assigned_only
   on welfare_requests for select
-  using (tenant_id in (select tenant_id from memberships where user_id = auth.uid() and status = 'active') and (assigned_welfare_officer_id = auth.uid() or exists (select 1 from pastoral_cases c where c.id = case_id and c.assigned_pastor_id = auth.uid())));
+  using (tenant_id in (select tenant_id from public.tenant_memberships where user_id = auth.uid() and status = 'active') and (assigned_welfare_officer_id = auth.uid() or exists (select 1 from pastoral_cases c where c.id = case_id and c.assigned_pastor_id = auth.uid())));
 
 create policy pastoral_referrals_recipient_or_referrer
   on pastoral_referrals for select
-  using (tenant_id in (select tenant_id from memberships where user_id = auth.uid() and status = 'active') and (referring_user_id = auth.uid() or receiving_user_id = auth.uid()));
+  using (tenant_id in (select tenant_id from public.tenant_memberships where user_id = auth.uid() and status = 'active') and (referring_user_id = auth.uid() or receiving_user_id = auth.uid()));
 
 create policy safeguarding_dedicated_access
   on safeguarding_cases for select
   using (
-    tenant_id in (select tenant_id from memberships where user_id = auth.uid() and status = 'active')
+    tenant_id in (select tenant_id from public.tenant_memberships where user_id = auth.uid() and status = 'active')
     and assigned_safeguarding_user_id = auth.uid()
   );
 
 create policy case_documents_no_public_read
   on case_documents for select
   using (
-    tenant_id in (select tenant_id from memberships where user_id = auth.uid() and status = 'active')
+    tenant_id in (select tenant_id from public.tenant_memberships where user_id = auth.uid() and status = 'active')
     and exists (
       select 1 from pastoral_cases c
       where c.id = case_documents.case_id
