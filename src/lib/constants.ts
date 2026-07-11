@@ -1,0 +1,103 @@
+import type { PermissionKey, SubscriptionPlan } from "./types";
+
+export const productPrinciples = [
+  "Every person matters: people are never reduced to numbers, leads or revenue.",
+  "Church autonomy: each church controls its structure, terminology, data and workflows.",
+  "Denomination neutrality: KingdomFlow stores canonical keys and displays tenant labels.",
+  "Spiritual boundaries: the product never replaces pastors, prayer, fellowship or spiritual leadership.",
+  "Financial integrity: churches configure their own payment destinations in future billing phases.",
+  "Privacy by design: pastoral, child, financial and welfare data require strict scoped access.",
+  "Configuration with safeguards: audit trails, tenant isolation and sensitive protections cannot be disabled.",
+];
+
+export const permissionKeys: PermissionKey[] = [
+  "tenant.view",
+  "tenant.manage",
+  "organization.view",
+  "organization.manage",
+  "branch.view",
+  "branch.manage",
+  "member.view",
+  "member.manage",
+  "visitor.view",
+  "visitor.manage",
+  "pastoral_case.view",
+  "pastoral_case.manage",
+  "finance.view",
+  "finance.manage",
+  "programme.view",
+  "programme.manage",
+  "report.view",
+  "report.manage",
+  "settings.view",
+  "settings.manage",
+  "role.view",
+  "role.manage",
+  "audit.view",
+];
+
+export const systemRoleTemplates = [
+  "Ministry Principal Authority",
+  "Senior Pastor / Ministry Head",
+  "Church Administrator",
+  "Branch Pastor",
+  "Pastor",
+  "Cell or Fellowship Leader",
+  "Programme Coordinator",
+  "Finance Officer",
+  "HR Officer",
+  "Department Leader",
+  "Volunteer",
+  "Member",
+];
+
+export const navigationModules = [
+  ["Home", "/workspace/kings-grace"],
+  ["People", "later"],
+  ["Visitors & New Converts", "later"],
+  ["Follow-Up", "later"],
+  ["Pastoral Care", "later"],
+  ["Prayer & Testimonies", "later"],
+  ["Cells / Fellowships", "later"],
+  ["Discipleship & Classes", "later"],
+  ["Services", "later"],
+  ["Departments", "later"],
+  ["Volunteers", "later"],
+  ["Events", "later"],
+  ["Outreach & Missions", "later"],
+  ["Children & Youth", "later"],
+  ["Giving", "later"],
+  ["Finance", "later"],
+  ["Programmes & Projects", "later"],
+  ["Assets & Facilities", "later"],
+  ["HR & Staff", "later"],
+  ["Communications", "later"],
+  ["Media", "later"],
+  ["Reports", "later"],
+  ["Settings", "/workspace/kings-grace/settings"],
+  ["Audit Trail", "/workspace/kings-grace/audit"],
+] as const;
+
+export const subscriptionPlans: SubscriptionPlan[] = [
+  { id: "starter", name: "Kingdom Starter", minActivePeople: 1, maxActivePeople: 100, monthlyKes: 0, annualKes: 0, features: ["Core setup", "Users foundation", "Audit foundation"] },
+  { id: "growth", name: "Kingdom Growth", minActivePeople: 101, maxActivePeople: 300, monthlyKes: 1000, annualKes: 10000, features: ["Growth-ready modules", "Branch foundation"] },
+  { id: "community", name: "Kingdom Community", minActivePeople: 301, maxActivePeople: 750, monthlyKes: 2000, annualKes: 20000, features: ["Community scale", "Advanced reporting foundation"] },
+  { id: "impact", name: "Kingdom Impact", minActivePeople: 751, maxActivePeople: 1500, monthlyKes: 3500, annualKes: 35000, features: ["Multi-branch operations", "Programme controls"] },
+  { id: "network", name: "Kingdom Network", minActivePeople: 1501, maxActivePeople: 3000, monthlyKes: 6000, annualKes: 60000, features: ["Network structure", "Scoped leadership"] },
+  { id: "mission", name: "Kingdom Mission", minActivePeople: 3001, maxActivePeople: 7500, monthlyKes: 10000, annualKes: 100000, features: ["Mission operations", "Enterprise support path"] },
+  { id: "global", name: "Kingdom Global", minActivePeople: 7501, maxActivePeople: 15000, monthlyKes: 15000, annualKes: 150000, features: ["Global scale", "Custom governance support"] },
+  { id: "enterprise", name: "Enterprise Ministry", minActivePeople: 15001, features: ["Custom pricing", "Dedicated implementation planning"] },
+];
+
+export const terminologyDefaults = {
+  member: "Member",
+  visitor: "Visitor",
+  new_convert: "New Convert",
+  pastor: "Pastor",
+  senior_pastor: "Senior Pastor",
+  small_group: "Cell",
+  branch: "Branch",
+  department: "Department",
+  foundation_class: "Foundation Class",
+  discipleship_programme: "Discipleship Programme",
+};
