@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import { WorkspaceShell } from "@/components/shells";
 import { Badge, ButtonLink, Card, EmptyPhase, PageHeader, StatCard } from "@/components/ui";
-import { auditLogs, branches, getTenantBySlug, getTenantSubscription, invitations, organizationUnits } from "@/lib/data";
+import { approvalRequests, delegations, actingAppointments, accessReviews } from "@/lib/authority-data";
+import { auditLogs, branches, getTenantBySlug, getTenantSubscription, invitations, memberships, organizationUnits } from "@/lib/data";
 
 export default async function WorkspaceHomePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -18,6 +19,12 @@ export default async function WorkspaceHomePage({ params }: { params: Promise<{ 
         <StatCard label="Organization units" value={tenantUnits.length} detail="Tenant-scoped rows." />
         <StatCard label={`Active ${tenant.branchTerminology.toLowerCase()}s`} value={tenantBranches.filter((branch) => branch.status === "active").length} detail={`${tenantBranches.length} total configured.`} />
         <StatCard label="Invited users" value={invitations.filter((invite) => invite.tenantId === tenant.id).length} detail="Pending, accepted or revoked." />
+      </div>
+      <div className="mt-4 grid gap-4 md:grid-cols-4">
+        <StatCard label="Active users" value={memberships.filter((item) => item.tenantId === tenant.id && item.status === "active").length} detail="Tenant memberships only." />
+        <StatCard label="Pending role approvals" value={approvalRequests.filter((item) => item.tenantId === tenant.id && item.status !== "approved").length} detail="Workflow-backed." />
+        <StatCard label="Active delegations" value={delegations.filter((item) => item.tenantId === tenant.id && item.status === "active").length} detail="Time-bound grants." />
+        <StatCard label="Acting appointments" value={actingAppointments.filter((item) => item.tenantId === tenant.id && item.status === "active").length} detail={`${accessReviews.length} access review open.`} />
       </div>
       <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_360px]">
         <Card>

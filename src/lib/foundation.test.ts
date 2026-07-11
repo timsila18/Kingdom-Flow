@@ -6,7 +6,7 @@ import { labelFor } from "./terminology";
 
 describe("KingdomFlow tenant foundation", () => {
   it("filters tenant-owned records by tenant id", () => {
-    expect(tenantScoped(organizationUnits, "tenant-kings-grace")).toHaveLength(4);
+    expect(tenantScoped(organizationUnits, "tenant-kings-grace")).toHaveLength(5);
     expect(tenantScoped(organizationUnits, "tenant-other")).toHaveLength(0);
   });
 

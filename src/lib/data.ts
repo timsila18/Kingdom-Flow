@@ -5,6 +5,7 @@ export const profiles: Profile[] = [
   { id: "user-platform-owner", email: "timsila18@gmail.com", fullName: "Timothy Sila" },
   { id: "user-admin", email: "admin@kingsgrace.test", fullName: "Amina Otieno", phone: "+254700000001" },
   { id: "user-branch", email: "branch@kingsgrace.test", fullName: "David Mwangi" },
+  { id: "user-volunteer", email: "volunteer@example.com", fullName: "Mercy Volunteer" },
 ];
 
 export const tenants: Tenant[] = [
@@ -104,6 +105,7 @@ export const organizationUnits: OrganizationUnit[] = [
   { id: "unit-east", tenantId: "tenant-kings-grace", parentId: "unit-head", unitType: "region", name: "Eastern Region", code: "KGC-ER", leaderName: "David Mwangi", status: "active", visibility: "tenant", reportingOrder: 2, createdBy: "user-admin", updatedBy: "user-admin", createdAt: "2026-07-11T08:20:00.000Z", updatedAt: "2026-07-11T08:20:00.000Z" },
   { id: "unit-imaara", tenantId: "tenant-kings-grace", parentId: "unit-east", unitType: "branch", name: "Imaara Campus", code: "KGC-IMA", leaderName: "David Mwangi", status: "active", visibility: "tenant", reportingOrder: 3, createdBy: "user-admin", updatedBy: "user-admin", createdAt: "2026-07-11T08:30:00.000Z", updatedAt: "2026-07-11T08:30:00.000Z" },
   { id: "unit-ruiru", tenantId: "tenant-kings-grace", parentId: "unit-east", unitType: "branch", name: "Ruiru Campus", code: "KGC-RUI", leaderName: "Grace Wanjiku", status: "active", visibility: "tenant", reportingOrder: 4, createdBy: "user-admin", updatedBy: "user-admin", createdAt: "2026-07-11T08:35:00.000Z", updatedAt: "2026-07-11T08:35:00.000Z" },
+  { id: "unit-youth", tenantId: "tenant-kings-grace", parentId: "unit-head", unitType: "department", name: "Youth Ministry", code: "KGC-YTH", leaderName: "Vacant", status: "active", visibility: "tenant", reportingOrder: 5, createdBy: "user-admin", updatedBy: "user-admin", createdAt: "2026-07-11T08:40:00.000Z", updatedAt: "2026-07-11T08:40:00.000Z" },
 ];
 
 export const branches: Branch[] = [
@@ -119,6 +121,8 @@ export const auditLogs: AuditLog[] = [
   { id: "audit-1", tenantId: "tenant-kings-grace", actorId: "user-platform-owner", actorName: "Timothy Sila", action: "church.approved", entityType: "tenant", entityId: "tenant-kings-grace", result: "success", reason: "Development seed approval", scopeType: "platform", createdAt: "2026-07-11T08:05:00.000Z" },
   { id: "audit-2", tenantId: "tenant-kings-grace", actorId: "user-admin", actorName: "Amina Otieno", action: "organization_unit.created", entityType: "organization_unit", entityId: "unit-imaara", result: "success", scopeType: "unit", scopeId: "unit-imaara", createdAt: "2026-07-11T08:30:00.000Z" },
   { id: "audit-3", tenantId: "tenant-kings-grace", actorId: "user-admin", actorName: "Amina Otieno", action: "invitation.created", entityType: "invitation", entityId: "invite-1", result: "success", scopeType: "branch", scopeId: "branch-imaara", createdAt: "2026-07-11T10:00:00.000Z" },
+  { id: "audit-4", tenantId: "tenant-kings-grace", actorId: "user-admin", actorName: "Amina Otieno", action: "role.assignment.submitted", entityType: "approval_request", entityId: "approval-youth-role", result: "success", scopeType: "unit", scopeId: "unit-youth", createdAt: "2026-07-11T11:00:00.000Z" },
+  { id: "audit-5", tenantId: "tenant-kings-grace", actorId: "user-admin", actorName: "Amina Otieno", action: "delegation.created", entityType: "delegation", entityId: "delegation-programme-east", result: "success", scopeType: "unit_descendants", scopeId: "unit-east", createdAt: "2026-07-11T11:20:00.000Z" },
 ];
 
 export const tenantTerminology = {

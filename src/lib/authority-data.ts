@@ -1,0 +1,292 @@
+import { permissionConflicts } from "./constants";
+import type {
+  AccessReview,
+  ActingAppointment,
+  ApprovalAction,
+  ApprovalRequest,
+  ApprovalWorkflow,
+  AuthorityLimit,
+  ConflictDeclaration,
+  Delegation,
+  GovernanceSettings,
+  LeadershipAssignment,
+  LeadershipPosition,
+  ReferralRule,
+  Role,
+  SeparationOfDutiesRule,
+  UserRoleAssignment,
+  UserSuspension,
+} from "./types";
+
+export const authorityRoles: Role[] = [
+  {
+    id: "role-principal",
+    tenantId: "tenant-kings-grace",
+    name: "principal_authority",
+    displayName: "Lead Pastor",
+    description: "Institutional ministry oversight without automatic confidential pastoral or finance bypass.",
+    category: "pastoral",
+    authorityLevel: 100,
+    defaultScopeType: "tenant",
+    mayReceiveDelegation: true,
+    mayDelegate: true,
+    maySupervise: true,
+    approvalRequiredForAssignment: true,
+    systemTemplate: true,
+    permissions: [
+      "tenant.view",
+      "tenant.update",
+      "organization.view",
+      "organization.create",
+      "organization.update",
+      "organization.assign_leader",
+      "branch.view_consolidated",
+      "role.view",
+      "role.assign",
+      "governance.view",
+      "governance.manage",
+      "governance.appointment.approve",
+      "delegation.create",
+      "delegation.approve",
+      "programme.approve",
+      "report.view_consolidated",
+      "audit.view",
+    ],
+  },
+  {
+    id: "role-executive",
+    tenantId: "tenant-kings-grace",
+    name: "executive_pastor",
+    displayName: "Executive Pastor",
+    description: "Senior delegated operational and programme leadership.",
+    category: "pastoral",
+    authorityLevel: 90,
+    defaultScopeType: "unit_descendants",
+    mayReceiveDelegation: true,
+    mayDelegate: true,
+    maySupervise: true,
+    approvalRequiredForAssignment: true,
+    systemTemplate: true,
+    permissions: ["tenant.view", "organization.view", "branch.view_consolidated", "programme.view", "programme.approve", "delegation.view", "audit.view"],
+  },
+  {
+    id: "role-regional",
+    tenantId: "tenant-kings-grace",
+    name: "regional_pastor",
+    displayName: "Regional Pastor",
+    description: "Regional pastoral oversight with descendant-unit visibility.",
+    category: "pastoral",
+    authorityLevel: 80,
+    defaultScopeType: "unit_descendants",
+    mayReceiveDelegation: true,
+    mayDelegate: true,
+    maySupervise: true,
+    approvalRequiredForAssignment: true,
+    systemTemplate: true,
+    permissions: ["tenant.view", "organization.view", "organization.view_descendants", "branch.view", "member.view", "pastoral_case.refer", "programme.view"],
+  },
+  {
+    id: "role-youth-coordinator",
+    tenantId: "tenant-kings-grace",
+    name: "national_youth_coordinator",
+    displayName: "National Youth Coordinator",
+    description: "Custom Prompt 2 role limited to Youth Ministry with sensitive communication approval.",
+    category: "programme",
+    authorityLevel: 65,
+    defaultScopeType: "unit",
+    mayReceiveDelegation: true,
+    mayDelegate: false,
+    maySupervise: true,
+    approvalRequiredForAssignment: true,
+    systemTemplate: false,
+    permissions: ["programme.view", "programme.update", "communication.create", "communication.send_scoped"],
+  },
+];
+
+export const userRoleAssignments: UserRoleAssignment[] = [
+  {
+    id: "assignment-admin-tenant",
+    tenantId: "tenant-kings-grace",
+    userId: "user-admin",
+    roleId: "role-admin",
+    scopeType: "tenant",
+    includeDescendants: true,
+    effectiveFrom: "2026-07-11T08:00:00.000Z",
+    active: true,
+    assignmentReason: "Initial administrator",
+    assignedBy: "user-platform-owner",
+    approvedBy: "user-platform-owner",
+  },
+  {
+    id: "assignment-principal",
+    tenantId: "tenant-kings-grace",
+    userId: "user-admin",
+    roleId: "role-principal",
+    scopeType: "tenant",
+    includeDescendants: true,
+    effectiveFrom: "2026-07-11T08:00:00.000Z",
+    active: true,
+    assignmentReason: "Prompt 2 principal authority seed",
+    assignedBy: "user-platform-owner",
+    approvedBy: "user-platform-owner",
+  },
+  {
+    id: "assignment-regional",
+    tenantId: "tenant-kings-grace",
+    userId: "user-branch",
+    roleId: "role-regional",
+    scopeType: "unit_descendants",
+    scopeId: "unit-east",
+    includeDescendants: true,
+    effectiveFrom: "2026-07-11T08:30:00.000Z",
+    active: true,
+    assignmentReason: "Regional oversight",
+    assignedBy: "user-admin",
+    approvedBy: "user-admin",
+  },
+  {
+    id: "assignment-expired",
+    tenantId: "tenant-kings-grace",
+    userId: "user-branch",
+    roleId: "role-youth-coordinator",
+    scopeType: "unit",
+    scopeId: "unit-youth",
+    includeDescendants: false,
+    effectiveFrom: "2026-05-01T00:00:00.000Z",
+    expiresAt: "2026-06-01T00:00:00.000Z",
+    active: true,
+    assignmentReason: "Expired pilot assignment",
+    assignedBy: "user-admin",
+  },
+];
+
+export const delegations: Delegation[] = [
+  {
+    id: "delegation-programme-east",
+    tenantId: "tenant-kings-grace",
+    delegatorUserId: "user-admin",
+    delegateUserId: "user-branch",
+    permissionKeys: ["programme.approve"],
+    scopeType: "unit_descendants",
+    scopeId: "unit-east",
+    includeDescendants: true,
+    startsAt: "2026-07-01T00:00:00.000Z",
+    expiresAt: "2026-08-01T00:00:00.000Z",
+    status: "active",
+    approvedBy: "user-admin",
+    reason: "Executive programme approval while senior pastor travels.",
+  },
+];
+
+export const actingAppointments: ActingAppointment[] = [
+  {
+    id: "acting-branch-imaara",
+    tenantId: "tenant-kings-grace",
+    unavailableUserId: "user-branch",
+    actingUserId: "user-admin",
+    roleId: "role-branch",
+    permissionKeys: ["branch.view", "member.view", "programme.view"],
+    scopeType: "branch",
+    scopeId: "branch-imaara",
+    startsAt: "2026-07-10T00:00:00.000Z",
+    expiresAt: "2026-07-25T00:00:00.000Z",
+    status: "active",
+  },
+];
+
+export const governanceSettings: GovernanceSettings[] = [
+  {
+    tenantId: "tenant-kings-grace",
+    governanceModel: "senior_pastor_led",
+    principalAuthorityUserId: "user-admin",
+    principalAuthorityTitle: "Lead Pastor",
+    approvalPhilosophy: "Sensitive authority changes require visible approval and audit history.",
+    emergencyAuthorityEnabled: true,
+    separationOfDutiesMode: "second_approval",
+    quorumFoundation: "Council quorum will be expanded in governance meetings prompt.",
+  },
+];
+
+export const leadershipPositions: LeadershipPosition[] = [
+  { id: "position-principal", tenantId: "tenant-kings-grace", title: "Lead Pastor", roleId: "role-principal", authorityLevel: 100, receivesReferrals: true, referralCategories: ["confidential", "safeguarding"], maxConfidentialityLevel: 5, status: "active" },
+  { id: "position-regional-east", tenantId: "tenant-kings-grace", title: "Regional Pastor", roleId: "role-regional", unitId: "unit-east", authorityLevel: 80, receivesReferrals: true, referralCategories: ["counselling", "family"], maxConfidentialityLevel: 4, status: "active" },
+  { id: "position-branch-imaara", tenantId: "tenant-kings-grace", title: "Branch Pastor", roleId: "role-branch", branchId: "branch-imaara", authorityLevel: 70, receivesReferrals: true, referralCategories: ["counselling"], maxConfidentialityLevel: 3, status: "active" },
+  { id: "position-youth", tenantId: "tenant-kings-grace", title: "Youth Ministry Leader", roleId: "role-youth-coordinator", unitId: "unit-youth", authorityLevel: 65, receivesReferrals: false, referralCategories: ["youth"], maxConfidentialityLevel: 2, status: "vacant" },
+];
+
+export const leadershipAssignments: LeadershipAssignment[] = [
+  { id: "leader-principal", tenantId: "tenant-kings-grace", positionId: "position-principal", userId: "user-admin", appointmentDate: "2026-07-11", termStart: "2026-07-11", status: "active", pastoralSpecialties: ["senior leadership", "safeguarding"] },
+  { id: "leader-regional-east", tenantId: "tenant-kings-grace", positionId: "position-regional-east", userId: "user-branch", reportsToAssignmentId: "leader-principal", appointmentDate: "2026-07-11", termStart: "2026-07-11", status: "active", pastoralSpecialties: ["counselling"] },
+  { id: "leader-branch-imaara", tenantId: "tenant-kings-grace", positionId: "position-branch-imaara", userId: "user-branch", reportsToAssignmentId: "leader-regional-east", actingReplacementUserId: "user-admin", appointmentDate: "2026-07-11", termStart: "2026-07-11", status: "acting", pastoralSpecialties: ["family"] },
+];
+
+export const referralRules: ReferralRule[] = [
+  { id: "referral-confidential-up", tenantId: "tenant-kings-grace", name: "Confidential counselling escalation", category: "counselling", sensitivity: "confidential", urgency: "soon", direction: "upward", active: true },
+  { id: "referral-safeguarding", tenantId: "tenant-kings-grace", name: "Safeguarding to principal authority", category: "safeguarding", sensitivity: "safeguarding", urgency: "urgent", direction: "senior_authority", targetPositionId: "position-principal", active: true },
+];
+
+export const authorityLimits: AuthorityLimit[] = [
+  { id: "limit-branch", tenantId: "tenant-kings-grace", roleId: "role-branch", permissionKey: "finance.transaction.approve", currency: "KES", maxAmount: 20000, transactionType: "expense", scopeType: "branch" },
+  { id: "limit-regional", tenantId: "tenant-kings-grace", roleId: "role-regional", permissionKey: "finance.transaction.approve", currency: "KES", maxAmount: 100000, transactionType: "expense", scopeType: "unit_descendants" },
+  { id: "limit-principal", tenantId: "tenant-kings-grace", roleId: "role-principal", permissionKey: "finance.transaction.approve", currency: "KES", maxAmount: 5000000, transactionType: "expense", scopeType: "tenant" },
+];
+
+export const approvalWorkflows: ApprovalWorkflow[] = [
+  {
+    id: "workflow-sensitive-role",
+    tenantId: "tenant-kings-grace",
+    name: "Sensitive role assignment",
+    actionType: "role.assignment.sensitive",
+    version: 1,
+    active: true,
+    steps: [
+      { id: "step-admin-review", workflowId: "workflow-sensitive-role", order: 1, mode: "sequential", approverRoleIds: ["role-admin"], approverUserIds: [], dueHours: 48 },
+      { id: "step-principal-approval", workflowId: "workflow-sensitive-role", order: 2, mode: "sequential", approverRoleIds: ["role-principal"], approverUserIds: [], hierarchyRule: "principal_authority", dueHours: 72 },
+    ],
+  },
+];
+
+export const approvalRequests: ApprovalRequest[] = [
+  {
+    id: "approval-youth-role",
+    tenantId: "tenant-kings-grace",
+    workflowId: "workflow-sensitive-role",
+    requesterUserId: "user-volunteer",
+    entityType: "user_role_assignment",
+    entityId: "assignment-youth-pending",
+    action: "role.assign",
+    summary: "Assign National Youth Coordinator to volunteer@example.com",
+    reason: "Youth ministry setup requires scoped communication access.",
+    currentStepOrder: 2,
+    status: "partially_approved",
+    scopeType: "unit",
+    scopeId: "unit-youth",
+    requestedAt: "2026-07-11T11:00:00.000Z",
+    dueAt: "2026-07-14T11:00:00.000Z",
+  },
+];
+
+export const approvalActions: ApprovalAction[] = [
+  { id: "approval-action-1", requestId: "approval-youth-role", approverUserId: "user-admin", decision: "approved", comment: "Scope and communication warning reviewed.", decidedAt: "2026-07-11T12:00:00.000Z", delegatedAuthority: false },
+];
+
+export const separationOfDutiesRules: SeparationOfDutiesRule[] = permissionConflicts.map((conflict, index) => ({
+  id: `sod-${index + 1}`,
+  tenantId: "tenant-kings-grace",
+  firstPermission: conflict.firstPermission,
+  secondPermission: conflict.secondPermission,
+  mode: index === 0 ? "second_approval" : "warning",
+  description: conflict.description,
+}));
+
+export const conflictDeclarations: ConflictDeclaration[] = [
+  { id: "conflict-approval-youth", tenantId: "tenant-kings-grace", userId: "user-admin", requestId: "approval-youth-role", conflictType: "prior_participation", recused: false, createdAt: "2026-07-11T11:30:00.000Z" },
+];
+
+export const accessReviews: AccessReview[] = [
+  { id: "review-q3", tenantId: "tenant-kings-grace", name: "Q3 elevated access review", status: "in_progress" },
+];
+
+export const userSuspensions: UserSuspension[] = [
+  { id: "suspension-scheduled", tenantId: "tenant-kings-grace", userId: "user-branch", status: "scheduled", reason: "Example scheduled leave access pause", startsAt: "2026-08-01T00:00:00.000Z", revokeDelegations: true, transferPendingApprovalsTo: "user-admin" },
+];
