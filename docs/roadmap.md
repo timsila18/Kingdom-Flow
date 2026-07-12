@@ -20,6 +20,8 @@ Prompt 9 implements giving and stewardship: giving categories, funds, restricted
 
 Prompt 10 implements internal administration: double-entry accounting, chart of accounts, journals, ledger, fund accounting, bank reconciliation, budgets, payment requests, vouchers, procurement, suppliers, inventory, stores, assets, projects, facilities, transport, HR, leave, attendance, payroll, payslips, performance, discipline, dashboards, reports and RLS.
 
-Reserved for later prompts: communications automation, member app workflows, digital ministry, AI Ministry Copilot, live payment processor integrations and advanced analytics.
+Prompt 11 implements the member app, communication ecosystem, sermon media, livestream foundations, announcements, native messaging, Solco scaffold, notifications, PWA shell and AI Ministry Copilot controls.
+
+Reserved for later prompts: advanced analytics, church-growth intelligence, whole-system integration, live payment processor integrations and subscription billing hardening.
 
 Future modules must extend the existing tenant, authorization, audit and RLS foundations rather than bypassing them.

@@ -1,4 +1,4 @@
-import { administrationPermissionKeys, subscriptionPlans, terminologyDefaults } from "./constants";
+import { administrationPermissionKeys, digitalPermissionKeys, subscriptionPlans, terminologyDefaults } from "./constants";
 import type { AuditLog, Branch, Invitation, Membership, OrganizationUnit, Profile, Role, Tenant } from "./types";
 
 export const profiles: Profile[] = [
@@ -318,6 +318,7 @@ export const roles: Role[] = [
       "giving.audit.view",
       "giving.settings.manage",
       ...administrationPermissionKeys,
+      ...digitalPermissionKeys,
     ],
   },
   {
@@ -326,7 +327,7 @@ export const roles: Role[] = [
     name: "branch_pastor",
     displayName: "Branch Pastor",
     systemTemplate: true,
-    permissions: ["tenant.view", "organization.view", "branch.view", "people.view", "visitor.view", "new_convert.view", "follow_up.view", "follow_up.assign", "child.view_basic", "pastoral_case.create", "pastoral_case.view_assigned", "pastoral_case.view_unit", "pastoral_case.update", "pastoral_case.assign", "pastoral_case.refer", "pastoral_case.close", "prayer_request.view", "prayer_request.assign", "counselling.manage", "pastoral_visit.manage", "bereavement.manage", "welfare_request.view", "welfare_request.assess", "small_group.view", "small_group.create", "small_group.update", "small_group.assign_leader", "small_group.membership.manage", "small_group.join_request.manage", "small_group.transfer.manage", "small_group.attendance.view", "small_group.report.review", "small_group.report.approve", "small_group.multiplication.manage", "programme.view", "programme.enrolment.view", "programme.enrolment.manage", "programme.enrolment.approve", "programme.attendance.view", "programme.report.view", "service.view", "service.create", "service.update", "service.approve", "service.publish", "service.report.review", "service.report.approve", "department.view", "department.manage_members", "volunteer.view", "volunteer.manage", "roster.view", "roster.publish", "service.incident.view", "event.view", "event.create", "event.update", "event.approve", "event.publish", "event.registration.view", "event.registration.manage", "event.check_in", "event.session.manage", "event.volunteer.manage", "event.incident.view", "outreach.view", "outreach.manage", "mission.view", "children.view_basic", "children.check_in", "children.check_out", "youth.manage", "campus_ministry.manage", "event.report.view", "event.report.manage", "giving.category.view", "giving.fund.view", "giving.destination.view", "giving.destination.approve", "giving.contribution.view_summary", "giving.handover.view", "giving.campaign.view", "accounting.account.view", "accounting.report.view", "budget.view", "budget.create", "payment_request.create", "payment_request.review", "procurement.request.create", "procurement.receipt.manage", "supplier.view", "inventory.view", "asset.view", "facility.view", "facility.booking.manage", "maintenance.manage", "project.view", "transport.view", "hr.leave.view", "hr.leave.approve"],
+    permissions: ["tenant.view", "organization.view", "branch.view", "people.view", "visitor.view", "new_convert.view", "follow_up.view", "follow_up.assign", "child.view_basic", "pastoral_case.create", "pastoral_case.view_assigned", "pastoral_case.view_unit", "pastoral_case.update", "pastoral_case.assign", "pastoral_case.refer", "pastoral_case.close", "prayer_request.view", "prayer_request.assign", "counselling.manage", "pastoral_visit.manage", "bereavement.manage", "welfare_request.view", "welfare_request.assess", "small_group.view", "small_group.create", "small_group.update", "small_group.assign_leader", "small_group.membership.manage", "small_group.join_request.manage", "small_group.transfer.manage", "small_group.attendance.view", "small_group.report.review", "small_group.report.approve", "small_group.multiplication.manage", "programme.view", "programme.enrolment.view", "programme.enrolment.manage", "programme.enrolment.approve", "programme.attendance.view", "programme.report.view", "service.view", "service.create", "service.update", "service.approve", "service.publish", "service.report.review", "service.report.approve", "department.view", "department.manage_members", "volunteer.view", "volunteer.manage", "roster.view", "roster.publish", "service.incident.view", "event.view", "event.create", "event.update", "event.approve", "event.publish", "event.registration.view", "event.registration.manage", "event.check_in", "event.session.manage", "event.volunteer.manage", "event.incident.view", "outreach.view", "outreach.manage", "mission.view", "children.view_basic", "children.check_in", "children.check_out", "youth.manage", "campus_ministry.manage", "event.report.view", "event.report.manage", "giving.category.view", "giving.fund.view", "giving.destination.view", "giving.destination.approve", "giving.contribution.view_summary", "giving.handover.view", "giving.campaign.view", "accounting.account.view", "accounting.report.view", "budget.view", "budget.create", "payment_request.create", "payment_request.review", "procurement.request.create", "procurement.receipt.manage", "supplier.view", "inventory.view", "asset.view", "facility.view", "facility.booking.manage", "maintenance.manage", "project.view", "transport.view", "hr.leave.view", "hr.leave.approve", "member_portal.access", "member_journey.view_self", "member_journey.view_others", "sermon.view", "announcement.create", "announcement.approve", "announcement.publish", "communication.send", "communication.schedule", "communication.analytics.view", "appointment.manage", "appointment.assign", "message.moderate", "ai.use_admin", "ai.view_usage"],
   },
   {
     id: "role-member",
@@ -334,7 +335,7 @@ export const roles: Role[] = [
     name: "member",
     displayName: "Member",
     systemTemplate: true,
-    permissions: ["tenant.view"],
+    permissions: ["tenant.view", "member_portal.access", "member_journey.view_self", "sermon.view", "appointment.request", "ai.use_member"],
   },
 ];
 

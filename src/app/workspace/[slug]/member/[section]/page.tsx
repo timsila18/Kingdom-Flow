@@ -1,0 +1,16 @@
+import { notFound } from "next/navigation";
+import { DigitalPrinciplesNotice, MemberSection } from "@/components/digital";
+import { WorkspaceShell } from "@/components/shells";
+import { getTenantBySlug } from "@/lib/data";
+
+export default async function MemberSectionPage({ params }: { params: Promise<{ slug: string; section: string }> }) {
+  const { slug, section } = await params;
+  const tenant = getTenantBySlug(slug);
+  if (!tenant) notFound();
+  return (
+    <WorkspaceShell tenantName={tenant.publicName}>
+      <MemberSection section={section} slug={slug} tenantId={tenant.id} userId="user-admin" personId="person-amina" />
+      <div className="mt-8"><DigitalPrinciplesNotice /></div>
+    </WorkspaceShell>
+  );
+}

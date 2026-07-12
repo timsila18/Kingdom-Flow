@@ -43,4 +43,8 @@ RLS is enabled on every Prompt 9 table. Summary totals, payment instructions and
 
 RLS is enabled on every Prompt 10 table. General administration tables use tenant-scoped permission checks, while supplier bank details, employment records, payslips and disciplinary records have stricter policies. Prompt 10 keeps giving records immutable from accounting posting, protects payroll from ordinary pastoral access and requires explicit permissions for sensitive exports.
 
+`20260712132011_member_app_communication_digital_ministry.sql` adds Prompt 11 member-app and digital-ministry tables. It creates member preferences, journey milestones, next steps, digital cards, member directory controls, sermons, sermon media, private sermon notes, livestreams, devotionals, Bible plans, resources, announcements, deliveries, preferences, providers, notifications, devices, emergency broadcasts, conversations, messages, moderation, appointments, forms, polls, Solco integration links and AI policy/usage/safety foundations.
+
+RLS is enabled on Prompt 11 tables. Member-facing records are tenant-scoped, private sermon notes are owner-only, messages are participant-only unless moderated, appointments are requester-or-authorized-manager, supplier-like provider secrets are stored by reference only, and AI/communication exports require explicit permissions.
+
 Local migration reset requires Docker Desktop. Run `supabase db reset --local` once Docker Desktop is running.
