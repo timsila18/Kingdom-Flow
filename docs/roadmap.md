@@ -14,6 +14,8 @@ Prompt 6 implements discipleship and church learning: programme catalogue, progr
 
 Prompt 7 implements services and ministry operations: service calendar, recurring schedules, order of service, sermons, worship sets, song library, music teams, rehearsals, departments, volunteers, availability, rosters, replacements, check-ins, technical/media readiness, protocol, hospitality, security, incidents, reports and post-service review.
 
-Reserved for later prompts: events, missions, full giving, finance, procurement, accounting, HR, payroll, assets, transport, facilities, communications automation, AI Ministry Copilot, live payment workflows and external integrations.
+Prompt 8 implements events, conferences, outreach, missions, children, teens, youth and campus ministry: event builder, sessions, registrations, waitlists, tickets, badges, check-in, speakers, venues, meals, accommodation, transport, volunteers, safeguarding, incidents, reports, outreach contacts, mission documents, child pickup controls and campus transitions.
+
+Reserved for later prompts: full giving, finance, procurement, accounting, HR, payroll, assets, facilities, communications automation, AI Ministry Copilot, live payment workflows and external integrations.
 
 Future modules must extend the existing tenant, authorization, audit and RLS foundations rather than bypassing them.

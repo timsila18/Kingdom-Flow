@@ -31,4 +31,8 @@ RLS is enabled on all Prompt 6 tables. Programme access is tenant-scoped, traine
 
 RLS is enabled on every Prompt 7 table. Policies use the existing tenant permission model plus assignment-based access for service teams and volunteers. Sensitive sermon, incident and report records require explicit permissions, volunteer records remain linked to the central people system, department hierarchy cycles are blocked, and public service access is limited to explicitly public published services.
 
+`20260712090620_events_outreach_missions_children.sql` adds Prompt 8 event and ministry-participation tables. It creates event types, events, planning roles, event-team assignments, sessions, registration categories, registrations, waitlists, tickets, scans, badges, check-ins, check-outs, speakers, venues, rooms, seating zones, meals, accommodation, transport, manifests, public pages, reports, feedback, lost-and-found, outreach, missions, children classes, child check-in/out, authorized pickups, pickup attempts, safeguarding ratios, teen/youth records, campus fellowships, campus transitions and activity signals.
+
+RLS is enabled on all Prompt 8 tables. Public users can only read approved public pages and insert controlled registrations/contact records. Authenticated access is tenant-scoped, event teams get event-limited access, check-in volunteers see minimum registration data, transport/accommodation/children/mission/safeguarding tables require explicit permissions, and sensitive child, medical, safeguarding and mission-document details remain restricted.
+
 Local migration reset requires Docker Desktop. Run `supabase db reset --local` once Docker Desktop is running.
