@@ -19,4 +19,8 @@ Production rollout should run this after Prompt 1. Existing Prompt 1 tenants, in
 
 RLS is enabled on every new table. Policies are strict by default: tenant membership is required, ordinary pastoral reads are assigned-or-granted, safeguarding requires dedicated assignment, prayer-team reads are assigned-team only, welfare and counselling records are isolated from ordinary pastoral access, public prayer intake can insert but cannot read, and case documents have no public read policy.
 
+`20260712053541_small_groups_cells_fellowships.sql` adds Prompt 5 cells/fellowships/small-groups tables. It creates group types, groups, hierarchy history, leadership assignments, memberships, join requests, transfers, meeting types, meetings, attendance, report templates, meeting reports, giving categories, giving totals, giving corrections, finance handovers, health snapshots, multiplication proposals, QR codes and communication-event placeholders.
+
+RLS is enabled on every new table. Policies use existing tenant membership and `has_permission(tenant_id, permission)` checks, with additional assigned-leader access for operational group work. Private-home locations are represented by approximate fields for directory/map use, giving tables enforce non-negative totals, handovers enforce separation of duties, and report/referral tables store safe metadata rather than confidential pastoral content.
+
 Local migration reset requires Docker Desktop. Run `supabase db reset --local` once Docker Desktop is running.
