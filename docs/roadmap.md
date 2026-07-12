@@ -22,6 +22,10 @@ Prompt 10 implements internal administration: double-entry accounting, chart of 
 
 Prompt 11 implements the member app, communication ecosystem, sermon media, livestream foundations, announcements, native messaging, Solco scaffold, notifications, PWA shell and AI Ministry Copilot controls.
 
-Reserved for later prompts: advanced analytics, church-growth intelligence, whole-system integration, live payment processor integrations and subscription billing hardening.
+Prompt 12 implements ethical advanced analytics: leadership command center, role-aware dashboards, visitor and new-convert funnels, fellowship health, KPI engine, network aggregate sharing, AI executive briefing, alerts, reporting, forecasting and scenario planning foundations.
+
+Prompt 13 implements whole-system launch foundations: active-people subscription billing, invoices, grace periods, exports, onboarding checklist, feature flags, support tickets/access, offboarding, release gates, policy surfaces and production-readiness reporting.
+
+External live credentials remain intentionally gated: live payment processor credentials, Solco production delivery and remote deployment authorization must be configured outside source control.
 
 Future modules must extend the existing tenant, authorization, audit and RLS foundations rather than bypassing them.

@@ -28,14 +28,14 @@ export function ButtonLink({ href, children, variant = "primary" }: { href: stri
 }
 
 export function Card({ children, className, ...props }: ComponentPropsWithoutRef<"section">) {
-  return <section className={clsx("rounded-lg border border-border bg-surface p-5 shadow-sm", className)} {...props}>{children}</section>;
+  return <section className={clsx("rounded-lg border border-border/80 bg-surface/90 p-5 shadow-[0_1px_0_rgba(255,255,255,.55)_inset,0_18px_45px_rgba(23,33,30,.06)] backdrop-blur-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_1px_0_rgba(255,255,255,.7)_inset,0_22px_55px_rgba(23,33,30,.09)]", className)} {...props}>{children}</section>;
 }
 
 export function PageHeader({ title, description, actions }: { title: string; description?: string; actions?: ReactNode }) {
   return (
     <div className="flex flex-col gap-4 border-b border-border pb-6 md:flex-row md:items-end md:justify-between">
       <div>
-        <h1 className="text-3xl font-semibold tracking-normal text-foreground">{title}</h1>
+        <h1 className="text-3xl font-semibold tracking-normal text-foreground md:text-4xl">{title}</h1>
         {description ? <p className="mt-2 max-w-3xl text-sm leading-6 text-muted">{description}</p> : null}
       </div>
       {actions ? <div className="flex flex-wrap gap-2">{actions}</div> : null}
@@ -47,7 +47,7 @@ export function StatCard({ label, value, detail }: { label: string; value: strin
   return (
     <Card>
       <p className="text-sm font-medium text-muted">{label}</p>
-      <p className="mt-3 text-3xl font-semibold text-foreground">{value}</p>
+      <p className="mt-3 text-3xl font-semibold text-foreground tabular-nums">{value}</p>
       {detail ? <p className="mt-2 text-xs leading-5 text-muted">{detail}</p> : null}
     </Card>
   );

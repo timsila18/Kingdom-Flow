@@ -47,4 +47,8 @@ RLS is enabled on every Prompt 10 table. General administration tables use tenan
 
 RLS is enabled on Prompt 11 tables. Member-facing records are tenant-scoped, private sermon notes are owner-only, messages are participant-only unless moderated, appointments are requester-or-authorized-manager, supplier-like provider secrets are stored by reference only, and AI/communication exports require explicit permissions.
 
+`20260712152012_intelligence_production_readiness.sql` adds Prompt 12 and 13 foundations. It creates church networks, network memberships, metric definitions, metric results, analytics alerts, executive briefings, active-people calculations, subscription invoices, feature flags, release gates, support tickets and support access requests.
+
+RLS is enabled on every new table. Analytics and billing records are tenant-scoped, network membership reads stay with participating churches, feature flags and release gates are authenticated-readable, and support access is explicitly requested, scoped and audited. Prompt 12/13 permissions are seeded idempotently.
+
 Local migration reset requires Docker Desktop. Run `supabase db reset --local` once Docker Desktop is running.

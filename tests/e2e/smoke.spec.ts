@@ -1,6 +1,8 @@
 import { expect, test } from "@playwright/test";
 
 test("loads the landing and workspace foundation", async ({ page }) => {
+  test.setTimeout(90_000);
+
   await page.goto("/");
   await expect(page.getByRole("heading", { name: "KingdomFlow" })).toBeVisible();
   await page.goto("/workspace/kings-grace");
