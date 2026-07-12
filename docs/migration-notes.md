@@ -35,4 +35,8 @@ RLS is enabled on every Prompt 7 table. Policies use the existing tenant permiss
 
 RLS is enabled on all Prompt 8 tables. Public users can only read approved public pages and insert controlled registrations/contact records. Authenticated access is tenant-scoped, event teams get event-limited access, check-in volunteers see minimum registration data, transport/accommodation/children/mission/safeguarding tables require explicit permissions, and sensitive child, medical, safeguarding and mission-document details remain restricted.
 
+`20260712103712_giving_stewardship_contributions.sql` adds Prompt 9 giving and stewardship tables. It creates giving categories, funds, fund restrictions, payment destinations, destination approvals/verifications, contributions, allocations, verification records, cash collections, count members, handover links, receipts, receipt sequences, statements, pledges, pledge schedules, partnerships, donors, in-kind records, campaigns, refunds, disputes, reconciliation imports/rows/matches, access logs, exports, notifications and activity links.
+
+RLS is enabled on every Prompt 9 table. Summary totals, payment instructions and public receipt verification expose minimal data. Individual giving, pledges, partnerships, restricted funds, destination changes, receipts, disputes, refunds, reconciliation and exports require explicit giving permissions. Members can only see their own verified contribution portal data.
+
 Local migration reset requires Docker Desktop. Run `supabase db reset --local` once Docker Desktop is running.

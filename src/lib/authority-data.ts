@@ -153,6 +153,11 @@ export const authorityRoles: Role[] = [
       "mission.view",
       "children.view_basic",
       "event.report.view",
+      "giving.category.view",
+      "giving.fund.view",
+      "giving.destination.view",
+      "giving.contribution.view_summary",
+      "giving.campaign.view",
     ],
   },
   {
@@ -169,7 +174,7 @@ export const authorityRoles: Role[] = [
     maySupervise: true,
     approvalRequiredForAssignment: true,
     systemTemplate: true,
-    permissions: ["tenant.view", "organization.view", "branch.view_consolidated", "programme.view", "programme.approve", "programme.report.view", "programme.enrolment.view", "programme.certificate.issue", "service.view", "service.approve", "service.report.review", "department.view", "volunteer.view", "roster.view", "event.view", "event.approve", "event.report.view", "outreach.view", "mission.view", "children.view_basic", "delegation.view", "audit.view", "people.view", "visitor.view", "new_convert.view", "follow_up.view", "pastoral_case.view_unit", "pastoral_case.view_all", "pastoral_case.refer", "pastoral_case.assign", "pastoral_case.close", "pastoral_case.export_summary", "prayer_request.view", "counselling.manage", "pastoral_visit.manage", "bereavement.manage", "welfare_request.view", "small_group.view", "small_group.view_all", "small_group.report.review", "small_group.report.approve", "small_group.multiplication.manage"],
+    permissions: ["tenant.view", "organization.view", "branch.view_consolidated", "programme.view", "programme.approve", "programme.report.view", "programme.enrolment.view", "programme.certificate.issue", "service.view", "service.approve", "service.report.review", "department.view", "volunteer.view", "roster.view", "event.view", "event.approve", "event.report.view", "outreach.view", "mission.view", "children.view_basic", "giving.category.view", "giving.fund.view", "giving.destination.view", "giving.contribution.view_summary", "giving.campaign.view", "delegation.view", "audit.view", "people.view", "visitor.view", "new_convert.view", "follow_up.view", "pastoral_case.view_unit", "pastoral_case.view_all", "pastoral_case.refer", "pastoral_case.assign", "pastoral_case.close", "pastoral_case.export_summary", "prayer_request.view", "counselling.manage", "pastoral_visit.manage", "bereavement.manage", "welfare_request.view", "small_group.view", "small_group.view_all", "small_group.report.review", "small_group.report.approve", "small_group.multiplication.manage"],
   },
   {
     id: "role-regional",

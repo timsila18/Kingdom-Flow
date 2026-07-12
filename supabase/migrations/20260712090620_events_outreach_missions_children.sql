@@ -890,6 +890,10 @@ create policy "campus transitions manage" on public.campus_transitions for all t
 create policy "event activity read" on public.event_activity_signals for select to authenticated using (public.has_permission(tenant_id, 'event.report.view'));
 create policy "event activity manage" on public.event_activity_signals for all to authenticated using (public.has_permission(tenant_id, 'event.report.manage')) with check (public.has_permission(tenant_id, 'event.report.manage'));
 
+insert into public.permission_groups (key, label, sort_order) values
+('events_missions_children', 'Events, Missions & Children', 80)
+on conflict (key) do update set label = excluded.label, sort_order = excluded.sort_order;
+
 insert into public.permissions (key, description, group_key, label, sensitive) values
 ('event.view','View scoped events.','events_missions_children','View events',false),
 ('event.create','Create events.','events_missions_children','Create events',false),

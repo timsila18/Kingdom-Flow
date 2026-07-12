@@ -9,7 +9,7 @@ test("events Prompt 8 surfaces render core ministry workflows", async ({ page })
 
   await page.goto("/workspace/kings-grace/events/registrations", { waitUntil: "domcontentloaded" });
   await expect(page.getByRole("heading", { name: "Event Registrations" })).toBeVisible();
-  await expect(page.getByText("total KES")).toBeVisible();
+  await expect(page.getByText("total KES").first()).toBeVisible();
 
   await page.goto("/workspace/kings-grace/events/check-in", { waitUntil: "domcontentloaded" });
   await expect(page.getByRole("heading", { name: "Event Check-In" })).toBeVisible();

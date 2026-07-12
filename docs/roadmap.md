@@ -16,6 +16,8 @@ Prompt 7 implements services and ministry operations: service calendar, recurrin
 
 Prompt 8 implements events, conferences, outreach, missions, children, teens, youth and campus ministry: event builder, sessions, registrations, waitlists, tickets, badges, check-in, speakers, venues, meals, accommodation, transport, volunteers, safeguarding, incidents, reports, outreach contacts, mission documents, child pickup controls and campus transitions.
 
-Reserved for later prompts: full giving, finance, procurement, accounting, HR, payroll, assets, facilities, communications automation, AI Ministry Copilot, live payment workflows and external integrations.
+Prompt 9 implements giving and stewardship: giving categories, funds, restricted funds, church-owned payment destinations, destination approvals, contribution records, anonymous giving, cash collections, handovers, receipts, statements, pledges, partnerships, campaigns, disputes, refunds, reconciliation imports, privacy controls and reports.
+
+Reserved for later prompts: finance accounting, procurement, HR, payroll, assets, facilities, communications automation, AI Ministry Copilot, live payment workflows and external integrations.
 
 Future modules must extend the existing tenant, authorization, audit and RLS foundations rather than bypassing them.
