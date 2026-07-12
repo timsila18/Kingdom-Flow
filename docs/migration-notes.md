@@ -39,4 +39,8 @@ RLS is enabled on all Prompt 8 tables. Public users can only read approved publi
 
 RLS is enabled on every Prompt 9 table. Summary totals, payment instructions and public receipt verification expose minimal data. Individual giving, pledges, partnerships, restricted funds, destination changes, receipts, disputes, refunds, reconciliation and exports require explicit giving permissions. Members can only see their own verified contribution portal data.
 
+`20260712122010_internal_administration_backbone.sql` adds Prompt 10 internal-administration tables. It creates chart-of-accounts, accounting periods, journals, journal lines, posting rules, fund balances, bank and cash accounts, bank statements, reconciliation, petty cash, budgets, payment requests, vouchers, suppliers, procurement, quotations, purchase orders, receipts, supplier invoices, payables, receivables, inventory, stores, stock counts, assets, projects, facilities, vehicles, transport, HR, leave, attendance, payroll, payslips, performance, discipline, training, exports and audit-event foundations.
+
+RLS is enabled on every Prompt 10 table. General administration tables use tenant-scoped permission checks, while supplier bank details, employment records, payslips and disciplinary records have stricter policies. Prompt 10 keeps giving records immutable from accounting posting, protects payroll from ordinary pastoral access and requires explicit permissions for sensitive exports.
+
 Local migration reset requires Docker Desktop. Run `supabase db reset --local` once Docker Desktop is running.

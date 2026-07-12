@@ -18,6 +18,8 @@ Prompt 8 implements events, conferences, outreach, missions, children, teens, yo
 
 Prompt 9 implements giving and stewardship: giving categories, funds, restricted funds, church-owned payment destinations, destination approvals, contribution records, anonymous giving, cash collections, handovers, receipts, statements, pledges, partnerships, campaigns, disputes, refunds, reconciliation imports, privacy controls and reports.
 
-Reserved for later prompts: finance accounting, procurement, HR, payroll, assets, facilities, communications automation, AI Ministry Copilot, live payment workflows and external integrations.
+Prompt 10 implements internal administration: double-entry accounting, chart of accounts, journals, ledger, fund accounting, bank reconciliation, budgets, payment requests, vouchers, procurement, suppliers, inventory, stores, assets, projects, facilities, transport, HR, leave, attendance, payroll, payslips, performance, discipline, dashboards, reports and RLS.
+
+Reserved for later prompts: communications automation, member app workflows, digital ministry, AI Ministry Copilot, live payment processor integrations and advanced analytics.
 
 Future modules must extend the existing tenant, authorization, audit and RLS foundations rather than bypassing them.
