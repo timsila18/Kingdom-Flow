@@ -27,4 +27,8 @@ RLS is enabled on every new table. Policies use existing tenant membership and `
 
 RLS is enabled on all Prompt 6 tables. Programme access is tenant-scoped, trainers can see assigned records, public users can only read published programme/certificate verification data or insert controlled applications, scholarships and payments require explicit permissions, and certificate verification exposes only safe public fields.
 
+`20260712084202_services_ministry_operations.sql` adds Prompt 7 service and ministry-operations tables. It creates service types, services, recurring schedules, templates, order-of-service items, sermon plans, song and worship set data, music teams, rehearsals, departments, volunteer profiles, applications, availability, rosters, conflicts, replacement requests, check-ins, equipment checklists, media requests, incidents and service reports.
+
+RLS is enabled on every Prompt 7 table. Policies use the existing tenant permission model plus assignment-based access for service teams and volunteers. Sensitive sermon, incident and report records require explicit permissions, volunteer records remain linked to the central people system, department hierarchy cycles are blocked, and public service access is limited to explicitly public published services.
+
 Local migration reset requires Docker Desktop. Run `supabase db reset --local` once Docker Desktop is running.

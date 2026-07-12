@@ -12,6 +12,8 @@ Prompt 5 implements cells, fellowships and small groups: group register, hierarc
 
 Prompt 6 implements discipleship and church learning: programme catalogue, programme builder, curriculum/versioning, cohorts, trainers, applications, enrolments, waitlist, scholarships, transparent fees, payment verification foundations, class attendance, assignments, assessments, grading, certificates, graduation, leadership pathways, mentorship, learner portal, trainer workspace and reports.
 
-Reserved for later prompts: services, volunteers, events, missions, full giving, finance, procurement, accounting, HR, payroll, assets, transport, facilities, media, communications automation, AI Ministry Copilot, live payment workflows and external integrations.
+Prompt 7 implements services and ministry operations: service calendar, recurring schedules, order of service, sermons, worship sets, song library, music teams, rehearsals, departments, volunteers, availability, rosters, replacements, check-ins, technical/media readiness, protocol, hospitality, security, incidents, reports and post-service review.
+
+Reserved for later prompts: events, missions, full giving, finance, procurement, accounting, HR, payroll, assets, transport, facilities, communications automation, AI Ministry Copilot, live payment workflows and external integrations.
 
 Future modules must extend the existing tenant, authorization, audit and RLS foundations rather than bypassing them.

@@ -135,6 +135,15 @@ export const authorityRoles: Role[] = [
       "programme.certificate.issue",
       "programme.graduation.manage",
       "programme.report.view",
+      "service.view",
+      "service.approve",
+      "service.publish",
+      "service.report.review",
+      "service.report.approve",
+      "department.view",
+      "volunteer.view",
+      "roster.view",
+      "service.incident.view",
     ],
   },
   {
@@ -151,7 +160,7 @@ export const authorityRoles: Role[] = [
     maySupervise: true,
     approvalRequiredForAssignment: true,
     systemTemplate: true,
-    permissions: ["tenant.view", "organization.view", "branch.view_consolidated", "programme.view", "programme.approve", "programme.report.view", "programme.enrolment.view", "programme.certificate.issue", "delegation.view", "audit.view", "people.view", "visitor.view", "new_convert.view", "follow_up.view", "pastoral_case.view_unit", "pastoral_case.view_all", "pastoral_case.refer", "pastoral_case.assign", "pastoral_case.close", "pastoral_case.export_summary", "prayer_request.view", "counselling.manage", "pastoral_visit.manage", "bereavement.manage", "welfare_request.view", "small_group.view", "small_group.view_all", "small_group.report.review", "small_group.report.approve", "small_group.multiplication.manage"],
+    permissions: ["tenant.view", "organization.view", "branch.view_consolidated", "programme.view", "programme.approve", "programme.report.view", "programme.enrolment.view", "programme.certificate.issue", "service.view", "service.approve", "service.report.review", "department.view", "volunteer.view", "roster.view", "delegation.view", "audit.view", "people.view", "visitor.view", "new_convert.view", "follow_up.view", "pastoral_case.view_unit", "pastoral_case.view_all", "pastoral_case.refer", "pastoral_case.assign", "pastoral_case.close", "pastoral_case.export_summary", "prayer_request.view", "counselling.manage", "pastoral_visit.manage", "bereavement.manage", "welfare_request.view", "small_group.view", "small_group.view_all", "small_group.report.review", "small_group.report.approve", "small_group.multiplication.manage"],
   },
   {
     id: "role-regional",
@@ -167,7 +176,7 @@ export const authorityRoles: Role[] = [
     maySupervise: true,
     approvalRequiredForAssignment: true,
     systemTemplate: true,
-    permissions: ["tenant.view", "organization.view", "organization.view_descendants", "branch.view", "member.view", "pastoral_case.create", "pastoral_case.view_assigned", "pastoral_case.view_unit", "pastoral_case.update", "pastoral_case.refer", "pastoral_case.assign", "pastoral_case.close", "programme.view", "programme.enrolment.view", "programme.enrolment.manage", "programme.enrolment.approve", "programme.attendance.view", "programme.report.view", "people.view", "visitor.view", "new_convert.view", "follow_up.view", "follow_up.assign", "child.view_basic", "prayer_request.view", "prayer_request.assign", "counselling.manage", "pastoral_visit.manage", "bereavement.manage", "welfare_request.view", "welfare_request.assess", "small_group.view", "small_group.create", "small_group.update", "small_group.assign_leader", "small_group.attendance.view", "small_group.report.review", "small_group.report.approve", "small_group.multiplication.manage"],
+    permissions: ["tenant.view", "organization.view", "organization.view_descendants", "branch.view", "member.view", "pastoral_case.create", "pastoral_case.view_assigned", "pastoral_case.view_unit", "pastoral_case.update", "pastoral_case.refer", "pastoral_case.assign", "pastoral_case.close", "programme.view", "programme.enrolment.view", "programme.enrolment.manage", "programme.enrolment.approve", "programme.attendance.view", "programme.report.view", "service.view", "service.create", "service.update", "service.approve", "service.report.review", "service.report.approve", "department.view", "department.manage_members", "volunteer.view", "volunteer.manage", "roster.view", "roster.publish", "people.view", "visitor.view", "new_convert.view", "follow_up.view", "follow_up.assign", "child.view_basic", "prayer_request.view", "prayer_request.assign", "counselling.manage", "pastoral_visit.manage", "bereavement.manage", "welfare_request.view", "welfare_request.assess", "small_group.view", "small_group.create", "small_group.update", "small_group.assign_leader", "small_group.attendance.view", "small_group.report.review", "small_group.report.approve", "small_group.multiplication.manage"],
   },
   {
     id: "role-youth-coordinator",
