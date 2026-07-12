@@ -10,6 +10,8 @@ Prompt 4 implements confidential pastoral care for cases, prayer requests, testi
 
 Prompt 5 implements cells, fellowships and small groups: group register, hierarchy, leaders, memberships, join requests, transfers, meetings, attendance, report templates, report review, safe referrals, giving totals, finance handover, health indicators, growth, multiplication, directory, map, QR codes, reminders and analytics.
 
-Reserved for later prompts: discipleship, services, volunteers, events, missions, full giving, finance, procurement, accounting, HR, payroll, assets, transport, facilities, media, communications automation, AI Ministry Copilot, live payment workflows and external integrations.
+Prompt 6 implements discipleship and church learning: programme catalogue, programme builder, curriculum/versioning, cohorts, trainers, applications, enrolments, waitlist, scholarships, transparent fees, payment verification foundations, class attendance, assignments, assessments, grading, certificates, graduation, leadership pathways, mentorship, learner portal, trainer workspace and reports.
+
+Reserved for later prompts: services, volunteers, events, missions, full giving, finance, procurement, accounting, HR, payroll, assets, transport, facilities, media, communications automation, AI Ministry Copilot, live payment workflows and external integrations.
 
 Future modules must extend the existing tenant, authorization, audit and RLS foundations rather than bypassing them.

@@ -23,4 +23,8 @@ RLS is enabled on every new table. Policies are strict by default: tenant member
 
 RLS is enabled on every new table. Policies use existing tenant membership and `has_permission(tenant_id, permission)` checks, with additional assigned-leader access for operational group work. Private-home locations are represented by approximate fields for directory/map use, giving tables enforce non-negative totals, handovers enforce separation of duties, and report/referral tables store safe metadata rather than confidential pastoral content.
 
+`20260712081522_programmes_learning_academy.sql` adds Prompt 6 programme-learning tables. It creates programme types, programmes, versions, modules, lessons, cohorts, trainers, applications, enrolments, eligibility results, scholarships, fee rules, payment destinations, payments, refunds, materials, sessions, attendance, assignments, assessment questions/results, completion rules, certificates, graduation events, leadership pathways, mentorships and activity signals.
+
+RLS is enabled on all Prompt 6 tables. Programme access is tenant-scoped, trainers can see assigned records, public users can only read published programme/certificate verification data or insert controlled applications, scholarships and payments require explicit permissions, and certificate verification exposes only safe public fields.
+
 Local migration reset requires Docker Desktop. Run `supabase db reset --local` once Docker Desktop is running.
