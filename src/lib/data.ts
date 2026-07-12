@@ -3,10 +3,30 @@ import type { AuditLog, Branch, Invitation, Membership, OrganizationUnit, Profil
 
 export const profiles: Profile[] = [
   { id: "user-platform-owner", email: "timsila18@gmail.com", fullName: "Timothy Sila" },
+  { id: "user-superadmin", email: "superadmin@kingdomflow.co.ke", fullName: "KingdomFlow Super Admin" },
   { id: "user-admin", email: "admin@kingsgrace.test", fullName: "Amina Otieno", phone: "+254700000001" },
   { id: "user-branch", email: "branch@kingsgrace.test", fullName: "David Mwangi" },
   { id: "user-volunteer", email: "volunteer@example.com", fullName: "Mercy Volunteer" },
+  { id: "user-test-all", email: "test@kingdomflow.co.ke", fullName: "Full Platform Tester" },
+  { id: "user-finance", email: "finance@kingsgrace.test", fullName: "Samuel Finance" },
+  { id: "user-hr", email: "hr@kingsgrace.test", fullName: "Naomi HR" },
+  { id: "user-care", email: "care@kingsgrace.test", fullName: "Pastor Care" },
+  { id: "user-member-demo", email: "member@kingsgrace.test", fullName: "Mary Member" },
 ];
+
+export const testLoginPassword = "KingdomFlow!2026";
+
+export const testLoginAccounts = [
+  { email: "superadmin@kingdomflow.co.ke", password: testLoginPassword, role: "Platform Super Admin", workspace: "Platform Admin", path: "/platform", coverage: "Platform, tenants, plans, release readiness and support boundaries." },
+  { email: "test@kingdomflow.co.ke", password: testLoginPassword, role: "Full Platform Tester", workspace: "King's Grace", path: "/workspace/kings-grace", coverage: "All demo workspace modules and smoke testing." },
+  { email: "admin@kingsgrace.test", password: testLoginPassword, role: "Church Administrator", workspace: "King's Grace", path: "/workspace/kings-grace", coverage: "People, settings, roles, workflows and church administration." },
+  { email: "branch@kingsgrace.test", password: testLoginPassword, role: "Branch Pastor", workspace: "King's Grace", path: "/workspace/kings-grace/intelligence", coverage: "Branch analytics, follow-up, care, services and fellowships." },
+  { email: "care@kingsgrace.test", password: testLoginPassword, role: "Pastoral Care Worker", workspace: "King's Grace", path: "/workspace/kings-grace/pastoral-care", coverage: "Prayer, welfare, counselling, referrals and confidential-care boundaries." },
+  { email: "finance@kingsgrace.test", password: testLoginPassword, role: "CFO / Accountant", workspace: "King's Grace", path: "/workspace/kings-grace/administration", coverage: "Giving summaries, accounting, budgets, procurement and subscription billing." },
+  { email: "hr@kingsgrace.test", password: testLoginPassword, role: "HR / Payroll Officer", workspace: "King's Grace", path: "/workspace/kings-grace/administration/hr", coverage: "Employees, leave, attendance, payroll and privacy checks." },
+  { email: "volunteer@example.com", password: testLoginPassword, role: "Volunteer / Department User", workspace: "King's Grace", path: "/workspace/kings-grace/services/volunteers", coverage: "Departments, rosters, check-ins and volunteer sustainability." },
+  { email: "member@kingsgrace.test", password: testLoginPassword, role: "Member App User", workspace: "King's Grace", path: "/workspace/kings-grace/member", coverage: "Member portal, sermons, messages, journey and privacy settings." },
+] as const;
 
 export const tenants: Tenant[] = [
   {

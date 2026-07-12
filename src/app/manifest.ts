@@ -7,9 +7,10 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Member companion for church services, sermons, prayer, messages, giving and next steps.",
     start_url: "/workspace/kings-grace/member",
     display: "standalone",
-    background_color: "#f8fafc",
-    theme_color: "#10243f",
+    background_color: "#070706",
+    theme_color: "#caa85d",
     icons: [
+      { src: "/kingdom-flow-logo.png", sizes: "1024x1024", type: "image/png" },
       { src: "/icon.svg", sizes: "any", type: "image/svg+xml" },
     ],
   };

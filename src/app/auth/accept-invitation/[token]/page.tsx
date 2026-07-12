@@ -1,4 +1,5 @@
 import { AuthShell } from "@/components/shells";
+import { ButtonLink } from "@/components/ui";
 import { invitations, roles, tenants } from "@/lib/data";
 
 export default async function AcceptInvitationPage({ params }: { params: Promise<{ token: string }> }) {
@@ -14,7 +15,7 @@ export default async function AcceptInvitationPage({ params }: { params: Promise
         <p><strong>Role:</strong> {role?.displayName}</p>
         <p><strong>Scope:</strong> {invitation.scopeType}</p>
       </div>
-      <button className="mt-5 w-full rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-white">Sign in and accept</button>
+      <div className="mt-5"><ButtonLink href="/auth/workspaces">Sign in and accept</ButtonLink></div>
     </AuthShell>
   );
 }

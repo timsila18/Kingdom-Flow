@@ -25,12 +25,12 @@ export default async function UsersPage({ params }: { params: Promise<{ slug: st
         </Card>
         <Card>
           <h2 className="text-lg font-semibold">Invite user</h2>
-          <form className="mt-4 grid gap-3">
-            <input className="rounded-md border border-border px-3 py-2 text-sm" placeholder="Email address" type="email" />
-            <select className="rounded-md border border-border px-3 py-2 text-sm">{roles.map((role) => <option key={role.id}>{role.displayName}</option>)}</select>
-            <select className="rounded-md border border-border px-3 py-2 text-sm"><option>Tenant scope</option><option>Branch scope</option><option>Unit scope</option></select>
-            <textarea className="min-h-24 rounded-md border border-border px-3 py-2 text-sm" placeholder="Optional welcome message" />
-            <button className="rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-white">Create secure invitation</button>
+          <form className="mt-4 grid gap-3" action="/auth/accept-invitation/kf-demo-invite">
+            <input className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground" placeholder="Email address" type="email" />
+            <select className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground">{roles.map((role) => <option key={role.id}>{role.displayName}</option>)}</select>
+            <select className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground"><option>Tenant scope</option><option>Branch scope</option><option>Unit scope</option></select>
+            <textarea className="min-h-24 rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground" placeholder="Optional welcome message" />
+            <button className="rounded-md border border-accent/70 bg-primary px-4 py-2.5 text-sm font-semibold text-black">Create secure invitation</button>
           </form>
           <div className="mt-5 text-sm text-muted">Pending: {invitations.filter((invite) => invite.tenantId === tenant.id && invite.status === "pending").length}</div>
         </Card>

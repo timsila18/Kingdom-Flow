@@ -179,7 +179,7 @@ export function DuplicatesPanel() {
   return (
     <>
       <PageHeader title="Duplicate Review" description="Review matching signals; merge only with permission, confirmation, audit and preserved source identifiers." />
-      <div className="mt-8 grid gap-4">{duplicateCandidates.map((candidate) => <Card key={candidate.id}><div className="flex gap-3"><AlertTriangle className="text-warning" /><div><p className="font-semibold">Potential duplicate</p><p className="mt-1 text-sm text-muted">{candidate.signals.join(", ")}</p></div></div><div className="mt-4 flex gap-2"><button className="rounded-md border border-border px-3 py-2 text-sm font-semibold">Merge safely</button><button className="rounded-md border border-border px-3 py-2 text-sm font-semibold">Not same person</button></div></Card>)}</div>
+      <div className="mt-8 grid gap-4">{duplicateCandidates.map((candidate) => <Card key={candidate.id}><div className="flex gap-3"><AlertTriangle className="text-warning" /><div><p className="font-semibold">Potential duplicate</p><p className="mt-1 text-sm text-muted">{candidate.signals.join(", ")}</p></div></div><div className="mt-4 flex gap-2"><Link href={`/workspace/kings-grace/people/profile/${candidate.primaryPersonId}`} className="rounded-md border border-border px-3 py-2 text-sm font-semibold hover:border-accent">Merge safely</Link><Link href="/workspace/kings-grace/audit" className="rounded-md border border-border px-3 py-2 text-sm font-semibold hover:border-accent">Not same person</Link></div></Card>)}</div>
     </>
   );
 }

@@ -14,6 +14,9 @@ export default function WorkspaceSelectorPage() {
           </Card>
         ))}
       </div>
+      <div className="mt-5">
+        <ButtonLink href="/auth/test-logins" variant="secondary">View test logins</ButtonLink>
+      </div>
     </AuthShell>
   );
 }

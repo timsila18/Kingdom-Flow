@@ -18,8 +18,8 @@ export function ButtonLink({ href, children, variant = "primary" }: { href: stri
     <Link
       href={href}
       className={clsx(
-        "inline-flex min-h-10 items-center justify-center rounded-md px-4 text-sm font-semibold transition",
-        variant === "primary" ? "bg-primary text-white hover:opacity-90 dark:bg-accent dark:text-slate-950" : "border border-border bg-surface text-foreground hover:bg-surface-muted",
+        "inline-flex min-h-10 items-center justify-center rounded-md px-4 text-sm font-semibold shadow-[0_1px_0_rgba(255,255,255,.12)_inset] transition hover:-translate-y-0.5",
+        variant === "primary" ? "border border-accent/70 bg-primary text-black hover:bg-accent" : "border border-border bg-surface text-foreground hover:border-accent hover:bg-surface-muted",
       )}
     >
       {children}
@@ -28,7 +28,7 @@ export function ButtonLink({ href, children, variant = "primary" }: { href: stri
 }
 
 export function Card({ children, className, ...props }: ComponentPropsWithoutRef<"section">) {
-  return <section className={clsx("rounded-lg border border-border/80 bg-surface/90 p-5 shadow-[0_1px_0_rgba(255,255,255,.55)_inset,0_18px_45px_rgba(23,33,30,.06)] backdrop-blur-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_1px_0_rgba(255,255,255,.7)_inset,0_22px_55px_rgba(23,33,30,.09)]", className)} {...props}>{children}</section>;
+  return <section className={clsx("rounded-lg border border-border/90 bg-surface/92 p-5 shadow-[0_1px_0_rgba(255,255,255,.08)_inset,0_22px_60px_rgba(0,0,0,.28)] backdrop-blur-sm transition duration-200 hover:-translate-y-0.5 hover:border-accent/60 hover:shadow-[0_1px_0_rgba(255,255,255,.12)_inset,0_26px_70px_rgba(0,0,0,.36)]", className)} {...props}>{children}</section>;
 }
 
 export function PageHeader({ title, description, actions }: { title: string; description?: string; actions?: ReactNode }) {

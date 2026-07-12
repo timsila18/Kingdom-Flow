@@ -1,19 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --background: #faf9f6;
-  --foreground: #17211e;
-  --surface: #ffffff;
-  --surface-muted: #eef5f1;
-  --border: #ddebe4;
-  --muted: #66736e;
-  --primary: #0b3d2e;
-  --primary-soft: #ddebe4;
-  --accent: #c6a15b;
-  --accent-soft: #f4ecd8;
-  --success: #167a58;
-  --warning: #9a5b13;
-  --danger: #a33a3a;
+  --background: #070706;
+  --foreground: #f6efe0;
+  --surface: #11100d;
+  --surface-muted: #1b1913;
+  --border: #3a3324;
+  --muted: #c9bfa9;
+  --primary: #caa85d;
+  --primary-soft: #2a2418;
+  --accent: #e5c878;
+  --accent-soft: #332713;
+  --success: #73b895;
+  --warning: #d5a84e;
+  --danger: #db7777;
 }
 
 @theme inline {
@@ -34,18 +34,18 @@
   --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
-    --background: #081410;
-    --foreground: #faf9f6;
-    --surface: #10231d;
-    --surface-muted: #17352b;
-    --border: #2c5145;
-    --muted: #b8c7c0;
-    --primary: #167a58;
-    --primary-soft: #17352b;
-    --accent: #e7d3a2;
-    --accent-soft: #3d3320;
+    --background: #0b0a08;
+    --foreground: #fff7e8;
+    --surface: #15130f;
+    --surface-muted: #211d15;
+    --border: #4b402b;
+    --muted: #d4c6aa;
+    --primary: #d2ad63;
+    --primary-soft: #302718;
+    --accent: #f0d485;
+    --accent-soft: #3b2d15;
   }
 }
 
@@ -59,8 +59,9 @@ html {
 
 body {
   background:
-    radial-gradient(circle at top right, color-mix(in srgb, var(--primary), transparent 88%), transparent 28rem),
-    linear-gradient(180deg, var(--background), color-mix(in srgb, var(--surface-muted), var(--background) 70%));
+    radial-gradient(circle at top right, rgba(229, 200, 120, 0.12), transparent 31rem),
+    radial-gradient(circle at bottom left, rgba(79, 68, 42, 0.22), transparent 28rem),
+    linear-gradient(180deg, #070706, #0e0c09 48%, #070706);
   color: var(--foreground);
 }
 

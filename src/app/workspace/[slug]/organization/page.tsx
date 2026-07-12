@@ -27,11 +27,11 @@ export default async function OrganizationPage({ params }: { params: Promise<{ s
         </Card>
         <Card>
           <h2 className="text-lg font-semibold">Create unit</h2>
-          <form className="mt-4 grid gap-3">
-            <input className="rounded-md border border-border px-3 py-2 text-sm" placeholder="Unit name" />
-            <input className="rounded-md border border-border px-3 py-2 text-sm" placeholder="Code" />
-            <select className="rounded-md border border-border px-3 py-2 text-sm"><option>branch</option><option>region</option><option>cell</option><option>department</option><option>custom</option></select>
-            <button className="rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-white">Create audited unit</button>
+          <form className="mt-4 grid gap-3" action={`/workspace/${tenant.slug}/organization`}>
+            <input className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground" placeholder="Unit name" />
+            <input className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground" placeholder="Code" />
+            <select className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground"><option>branch</option><option>region</option><option>cell</option><option>department</option><option>custom</option></select>
+            <button className="rounded-md border border-accent/70 bg-primary px-4 py-2.5 text-sm font-semibold text-black">Create audited unit</button>
           </form>
         </Card>
       </div>
