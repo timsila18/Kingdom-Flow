@@ -1,8 +1,10 @@
 import { PlatformShell } from "@/components/shells";
 import { Badge, ButtonLink, Card, PageHeader, StatCard } from "@/components/ui";
-import { auditLogs, tenants } from "@/lib/data";
+import { auditLogs } from "@/lib/data";
+import { getVisibleTenants } from "@/lib/tenant-store";
 
-export default function PlatformPage() {
+export default async function PlatformPage() {
+  const tenants = await getVisibleTenants();
   const pending = tenants.filter((tenant) => tenant.status === "under_review").length;
   const approved = tenants.filter((tenant) => tenant.status === "approved").length;
   return (
@@ -24,7 +26,7 @@ export default function PlatformPage() {
                 {tenants.map((tenant) => (
                   <tr key={tenant.id} className="border-t border-border">
                     <td className="py-3 font-medium">{tenant.publicName}</td>
-                    <td><Badge tone={tenant.status === "approved" ? "success" : "warning"}>{tenant.status.replace("_", " ")}</Badge></td>
+                    <td><Badge tone={tenant.status === "approved" ? "success" : tenant.status === "rejected" || tenant.status === "suspended" ? "danger" : "warning"}>{tenant.status.replace("_", " ")}</Badge></td>
                     <td>{tenant.region}</td>
                     <td><ButtonLink href={`/platform/churches/${tenant.slug}`} variant="secondary">Inspect</ButtonLink></td>
                   </tr>

@@ -1,8 +1,9 @@
 import { AuthShell } from "@/components/shells";
 import { ButtonLink, Card } from "@/components/ui";
-import { tenants } from "@/lib/data";
+import { getVisibleTenants } from "@/lib/tenant-store";
 
-export default function WorkspaceSelectorPage() {
+export default async function WorkspaceSelectorPage() {
+  const tenants = await getVisibleTenants();
   return (
     <AuthShell title="Select workspace">
       <div className="grid gap-3">
