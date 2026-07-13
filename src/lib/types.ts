@@ -50,8 +50,33 @@ export interface Tenant {
   status: TenantStatus;
   subscriptionStatus: SubscriptionStatus;
   onboardingStatus: TenantStatus;
+  onboardingProfile?: TenantOnboardingProfile;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface TenantOnboardingProfile {
+  churchType: string;
+  denominationOrNetwork?: string;
+  foundingYear?: string;
+  website?: string;
+  principalLeaderName: string;
+  principalLeaderEmail: string;
+  principalLeaderPhone: string;
+  governanceModel: string;
+  approvalModel: string;
+  estimatedMembers: string;
+  averageAttendance: string;
+  branchesPlanned: string;
+  subscriptionTier: string;
+  brandTone: string;
+  logoStatus: string;
+  primaryServiceDay: string;
+  departments: string[];
+  programmes: string[];
+  firstBranchName: string;
+  firstBranchLocation: string;
+  declarations: string[];
 }
 
 export interface Profile {

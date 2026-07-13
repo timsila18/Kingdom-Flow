@@ -63,6 +63,14 @@ export function buildTenantFromRegistration(formData: FormData, status: TenantSt
   const legalName = String(formData.get("legalName") ?? "").trim() || publicName;
   const slug = slugifyTenantName(String(formData.get("slug") ?? "").trim() || publicName) || `church-${Date.now()}`;
   const now = new Date().toISOString();
+  const departments = String(formData.get("departments") ?? "")
+    .split(/\r?\n|,/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+  const programmes = String(formData.get("programmes") ?? "")
+    .split(/\r?\n|,/)
+    .map((item) => item.trim())
+    .filter(Boolean);
 
   return {
     id: `tenant-${slug}`,
@@ -87,6 +95,33 @@ export function buildTenantFromRegistration(formData: FormData, status: TenantSt
     status,
     subscriptionStatus: status === "approved" ? "active" : "trialing",
     onboardingStatus: status === "draft" ? "draft" : "submitted",
+    onboardingProfile: {
+      churchType: String(formData.get("churchType") ?? "").trim() || "Independent church",
+      denominationOrNetwork: String(formData.get("denominationOrNetwork") ?? "").trim(),
+      foundingYear: String(formData.get("foundingYear") ?? "").trim(),
+      website: String(formData.get("website") ?? "").trim(),
+      principalLeaderName: String(formData.get("principalLeaderName") ?? "").trim() || "Not provided",
+      principalLeaderEmail: String(formData.get("principalLeaderEmail") ?? "").trim() || "Not provided",
+      principalLeaderPhone: String(formData.get("principalLeaderPhone") ?? "").trim() || "Not provided",
+      governanceModel: String(formData.get("governanceModel") ?? "").trim() || "Senior pastor led",
+      approvalModel: String(formData.get("approvalModel") ?? "").trim() || "Two-person approval for sensitive actions",
+      estimatedMembers: String(formData.get("estimatedMembers") ?? "").trim() || "Not provided",
+      averageAttendance: String(formData.get("averageAttendance") ?? "").trim() || "Not provided",
+      branchesPlanned: String(formData.get("branchesPlanned") ?? "").trim() || "1",
+      subscriptionTier: String(formData.get("subscriptionTier") ?? "").trim() || "Starter",
+      brandTone: String(formData.get("brandTone") ?? "").trim() || "Warm, dignified and modern",
+      logoStatus: String(formData.get("logoStatus") ?? "").trim() || "Use default KingdomFlow mark until uploaded",
+      primaryServiceDay: String(formData.get("primaryServiceDay") ?? "").trim() || "Sunday",
+      departments: departments.length ? departments : ["Worship", "Ushers", "Media", "Children", "Discipleship", "Pastoral Care"],
+      programmes: programmes.length ? programmes : ["Foundation Class", "Discipleship", "Membership Class"],
+      firstBranchName: String(formData.get("firstBranchName") ?? "").trim() || "Main Branch",
+      firstBranchLocation: String(formData.get("firstBranchLocation") ?? "").trim() || String(formData.get("physicalAddress") ?? "").trim() || "Not provided",
+      declarations: [
+        "Authorized representative",
+        "Church controls its ministry data",
+        "KingdomFlow is technology infrastructure, not spiritual authority",
+      ],
+    },
     createdAt: now,
     updatedAt: now,
   } satisfies Tenant;
