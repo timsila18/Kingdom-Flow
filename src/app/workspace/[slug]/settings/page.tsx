@@ -1,16 +1,16 @@
 import { notFound } from "next/navigation";
 import { WorkspaceShell } from "@/components/shells";
 import { Badge, Card, EmptyPhase, PageHeader } from "@/components/ui";
-import { getTenantBySlug } from "@/lib/data";
+import { getVisibleTenantBySlug } from "@/lib/tenant-store";
 import { labelFor } from "@/lib/terminology";
 
 export default async function SettingsPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const tenant = getTenantBySlug(slug);
+  const tenant = await getVisibleTenantBySlug(slug);
   if (!tenant) notFound();
   const sections = ["Ministry Profile", "Branding", "Terminology", "Organizational Structure", "Branches", "Users", "Roles & Permissions", "Governance & Authority", "Regional Settings", "Communication Defaults", "Privacy", "Security", "Data Management", "Subscription", "Integrations", "Audit Trail"];
   return (
-    <WorkspaceShell tenantName={tenant.publicName}>
+    <WorkspaceShell tenantName={tenant.publicName} tenantSlug={tenant.slug}>
       <PageHeader title="Settings" description="Prompt 1 implements profile, branding, terminology, structure, users, roles, subscription and audit foundations. Future integrations are explicitly unavailable in this phase." />
       <div className="mt-8 grid gap-6 lg:grid-cols-[260px_1fr]">
         <Card><nav className="grid gap-1 text-sm">{sections.map((section) => <a key={section} href={`#${section.toLowerCase().replaceAll(" ", "-")}`} className="rounded-md px-3 py-2 hover:bg-surface-muted">{section}</a>)}</nav></Card>

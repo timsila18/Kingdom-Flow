@@ -1,15 +1,16 @@
 import { notFound } from "next/navigation";
 import { WorkspaceShell } from "@/components/shells";
 import { Card, PageHeader } from "@/components/ui";
-import { auditLogs, getTenantBySlug } from "@/lib/data";
+import { auditLogs } from "@/lib/data";
+import { getVisibleTenantBySlug } from "@/lib/tenant-store";
 
 export default async function AuditPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const tenant = getTenantBySlug(slug);
+  const tenant = await getVisibleTenantBySlug(slug);
   if (!tenant) notFound();
   const logs = auditLogs.filter((log) => log.tenantId === tenant.id);
   return (
-    <WorkspaceShell tenantName={tenant.publicName}>
+    <WorkspaceShell tenantName={tenant.publicName} tenantSlug={tenant.slug}>
       <PageHeader title="Audit trail" description="Searchable administrative activity foundation. Secrets are redacted and records are immutable in the schema." />
       <Card className="mt-8">
         <input className="mb-4 w-full rounded-md border border-border px-3 py-2 text-sm" placeholder="Search action, actor or entity" />

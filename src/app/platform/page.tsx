@@ -3,6 +3,8 @@ import { Badge, ButtonLink, Card, PageHeader, StatCard } from "@/components/ui";
 import { auditLogs } from "@/lib/data";
 import { getVisibleTenants } from "@/lib/tenant-store";
 
+export const dynamic = "force-dynamic";
+
 export default async function PlatformPage() {
   const tenants = await getVisibleTenants();
   const pending = tenants.filter((tenant) => tenant.status === "under_review").length;

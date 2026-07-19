@@ -15,7 +15,7 @@ import {
   WorkflowsPanel,
 } from "@/components/authority";
 import { WorkspaceShell } from "@/components/shells";
-import { getTenantBySlug } from "@/lib/data";
+import { getVisibleTenantBySlug } from "@/lib/tenant-store";
 
 const sections = {
   "roles-permissions": RolesPermissionsPanel,
@@ -35,13 +35,13 @@ const sections = {
 
 export default async function AuthoritySectionPage({ params }: { params: Promise<{ slug: string; section: keyof typeof sections }> }) {
   const { slug, section } = await params;
-  const tenant = getTenantBySlug(slug);
+  const tenant = await getVisibleTenantBySlug(slug);
   if (!tenant) notFound();
   const Panel = sections[section];
   if (!Panel) notFound();
 
   return (
-    <WorkspaceShell tenantName={tenant.publicName}>
+    <WorkspaceShell tenantName={tenant.publicName} tenantSlug={tenant.slug}>
       <Panel slug={slug} />
     </WorkspaceShell>
   );

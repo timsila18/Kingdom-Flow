@@ -40,20 +40,23 @@ export function MarketingShell({ children }: { children: ReactNode }) {
   );
 }
 
-export function WorkspaceShell({ children, tenantName }: { children: ReactNode; tenantName: string }) {
+export function WorkspaceShell({ children, tenantName, tenantSlug = "kings-grace" }: { children: ReactNode; tenantName: string; tenantSlug?: string }) {
+  const workspaceHref = `/workspace/${tenantSlug}`;
+  const moduleLinks = navigationModules.map(([label, href]) => [label, href.replace("/workspace/kings-grace", workspaceHref)] as const);
+
   return (
     <div className="grid min-h-screen lg:grid-cols-[300px_1fr]">
       <aside className="sticky top-0 hidden h-screen overflow-hidden border-r border-[#443620] bg-[linear-gradient(165deg,#050504,#11100d_45%,#1b160d)] px-4 py-5 text-foreground shadow-[20px_0_70px_rgba(0,0,0,.45)] lg:block">
-        <Link href="/workspace/kings-grace" className="flex items-center gap-3 px-2 font-semibold">
+        <Link href={workspaceHref} className="flex items-center gap-3 px-2 font-semibold">
           <Image src="/kingdom-flow-logo.png" alt="KingdomFlow" width={48} height={48} className="rounded-lg object-contain shadow-[0_0_28px_rgba(229,200,120,.18)]" />
           <span className="min-w-0 truncate">{tenantName}</span>
         </Link>
         <Link href="/auth/workspaces" className="mt-5 flex w-full items-center justify-between rounded-md border border-border bg-surface-muted px-3 py-2 text-left text-sm text-foreground shadow-[0_1px_0_rgba(255,255,255,.08)_inset]" aria-label="Switch workspace">
-          <span>Workspace: King&apos;s Grace</span>
+          <span className="min-w-0 truncate">Workspace: {tenantName}</span>
           <ChevronDown size={16} />
         </Link>
         <nav className="kf-scrollbar mt-6 grid max-h-[calc(100vh-132px)] gap-1 overflow-y-auto pr-1 text-sm">
-          {navigationModules.map(([label, href]) => (
+          {moduleLinks.map(([label, href]) => (
             <Link key={label} href={href} className="rounded-md px-3 py-2 text-muted transition hover:bg-surface-muted hover:text-foreground hover:shadow-[0_0_24px_rgba(229,200,120,.10)]">
               {label}
             </Link>
@@ -68,15 +71,15 @@ export function WorkspaceShell({ children, tenantName }: { children: ReactNode; 
             <span className="font-medium text-foreground sm:hidden">KingdomFlow</span>
           </div>
           <div className="flex items-center gap-3">
-            <button className="rounded-md border border-border bg-surface p-2" aria-label="Notifications">
+            <a href={`${workspaceHref}/audit`} className="rounded-md border border-border bg-surface p-2" aria-label="Notifications">
               <Bell size={18} />
-            </button>
+            </a>
             <ButtonLink href="/auth/workspaces" variant="secondary">Switch</ButtonLink>
             <DemoUserMenu />
           </div>
         </header>
         <nav className="kf-scrollbar flex gap-2 overflow-x-auto border-b border-border/70 bg-surface/80 px-5 py-3 text-sm lg:hidden">
-          {navigationModules.map(([label, href]) => (
+          {moduleLinks.map(([label, href]) => (
             <Link key={label} href={href} className="shrink-0 rounded-full border border-border bg-surface px-3 py-2 font-medium text-foreground">
               {label}
             </Link>

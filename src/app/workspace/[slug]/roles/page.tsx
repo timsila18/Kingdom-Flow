@@ -2,15 +2,16 @@ import { notFound } from "next/navigation";
 import { WorkspaceShell } from "@/components/shells";
 import { Badge, Card, PageHeader } from "@/components/ui";
 import { permissionKeys, systemRoleTemplates } from "@/lib/constants";
-import { getTenantBySlug, roles } from "@/lib/data";
+import { roles } from "@/lib/data";
+import { getVisibleTenantBySlug } from "@/lib/tenant-store";
 
 export default async function RolesPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const tenant = getTenantBySlug(slug);
+  const tenant = await getVisibleTenantBySlug(slug);
   if (!tenant) notFound();
   const tenantRoles = roles.filter((role) => role.tenantId === tenant.id);
   return (
-    <WorkspaceShell tenantName={tenant.publicName}>
+    <WorkspaceShell tenantName={tenant.publicName} tenantSlug={tenant.slug}>
       <PageHeader title="Roles & permissions foundation" description="Permission checks use keys and scopes rather than hard-coded role names. Display titles can later be renamed per church." />
       <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_360px]">
         <Card>

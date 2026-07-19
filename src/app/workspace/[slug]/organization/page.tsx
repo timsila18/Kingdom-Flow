@@ -1,15 +1,16 @@
 import { notFound } from "next/navigation";
 import { WorkspaceShell } from "@/components/shells";
 import { Badge, ButtonLink, Card, PageHeader } from "@/components/ui";
-import { getTenantBySlug, organizationUnits } from "@/lib/data";
+import { organizationUnits } from "@/lib/data";
+import { getVisibleTenantBySlug } from "@/lib/tenant-store";
 
 export default async function OrganizationPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const tenant = getTenantBySlug(slug);
+  const tenant = await getVisibleTenantBySlug(slug);
   if (!tenant) notFound();
   const units = organizationUnits.filter((unit) => unit.tenantId === tenant.id).sort((a, b) => a.reportingOrder - b.reportingOrder);
   return (
-    <WorkspaceShell tenantName={tenant.publicName}>
+    <WorkspaceShell tenantName={tenant.publicName} tenantSlug={tenant.slug}>
       <PageHeader title="Organizational structure" description="A generic hierarchy builder for regions, branches, cells, departments, programmes and custom units. Circular moves are blocked by domain logic and database triggers." actions={<ButtonLink href={`/workspace/${tenant.slug}/branches`}>View branches</ButtonLink>} />
       <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_360px]">
         <Card>
@@ -27,10 +28,12 @@ export default async function OrganizationPage({ params }: { params: Promise<{ s
         </Card>
         <Card>
           <h2 className="text-lg font-semibold">Create unit</h2>
-          <form className="mt-4 grid gap-3" action={`/workspace/${tenant.slug}/organization`}>
-            <input className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground" placeholder="Unit name" />
-            <input className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground" placeholder="Code" />
-            <select className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground"><option>branch</option><option>region</option><option>cell</option><option>department</option><option>custom</option></select>
+          <form className="mt-4 grid gap-3" action={`/workspace/${tenant.slug}/actions`} method="post">
+            <input type="hidden" name="returnTo" value={`/workspace/${tenant.slug}/organization`} />
+            <input type="hidden" name="action" value="unit-created" />
+            <input name="unitName" className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground" placeholder="Unit name" required />
+            <input name="unitCode" className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground" placeholder="Code" required />
+            <select name="unitType" className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground"><option>branch</option><option>region</option><option>cell</option><option>department</option><option>custom</option></select>
             <button className="rounded-md border border-accent/70 bg-primary px-4 py-2.5 text-sm font-semibold text-black">Create audited unit</button>
           </form>
         </Card>

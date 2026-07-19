@@ -2,19 +2,20 @@ import { notFound } from "next/navigation";
 import { WorkspaceShell } from "@/components/shells";
 import { Badge, ButtonLink, Card, EmptyPhase, PageHeader, StatCard } from "@/components/ui";
 import { approvalRequests, delegations, actingAppointments, accessReviews } from "@/lib/authority-data";
-import { auditLogs, branches, getTenantBySlug, getTenantSubscription, invitations, memberships, organizationUnits } from "@/lib/data";
+import { auditLogs, branches, getTenantSubscription, invitations, memberships, organizationUnits } from "@/lib/data";
+import { getVisibleTenantBySlug } from "@/lib/tenant-store";
 import { getEveryPersonMattersStats } from "@/lib/people-engine";
 
 export default async function WorkspaceHomePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const tenant = getTenantBySlug(slug);
+  const tenant = await getVisibleTenantBySlug(slug);
   if (!tenant) notFound();
   const tenantUnits = organizationUnits.filter((unit) => unit.tenantId === tenant.id);
   const tenantBranches = branches.filter((branch) => branch.tenantId === tenant.id);
   const subscription = getTenantSubscription(tenant.id);
   const peopleStats = getEveryPersonMattersStats(tenant.id, "user-admin");
   return (
-    <WorkspaceShell tenantName={tenant.publicName}>
+    <WorkspaceShell tenantName={tenant.publicName} tenantSlug={tenant.slug}>
       <PageHeader title={`${tenant.publicName} home`} description="Administrative setup dashboard using real tenant foundation data only. Member, giving, attendance and conversion metrics are not shown before those modules exist." actions={<Badge tone="success">{tenant.status}</Badge>} />
       <div className="mt-8 grid gap-4 md:grid-cols-4">
         <StatCard label="Onboarding completion" value="92%" detail="Profile, structure, branding and declaration are complete." />

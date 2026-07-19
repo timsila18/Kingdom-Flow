@@ -3,16 +3,17 @@ import { SeparationPanel } from "@/components/authority";
 import { WorkspaceShell } from "@/components/shells";
 import { Badge, Card, PageHeader } from "@/components/ui";
 import { getAllRoles, getRoleWarnings } from "@/lib/authority-engine";
-import { profiles, getTenantBySlug } from "@/lib/data";
+import { profiles } from "@/lib/data";
+import { getVisibleTenantBySlug } from "@/lib/tenant-store";
 
 export default async function RoleDetailPage({ params }: { params: Promise<{ slug: string; roleId: string }> }) {
   const { slug, roleId } = await params;
-  const tenant = getTenantBySlug(slug);
+  const tenant = await getVisibleTenantBySlug(slug);
   const role = getAllRoles().find((item) => item.id === roleId);
   if (!tenant || !role) notFound();
   const warnings = getRoleWarnings(role.permissions);
   return (
-    <WorkspaceShell tenantName={tenant.publicName}>
+    <WorkspaceShell tenantName={tenant.publicName} tenantSlug={tenant.slug}>
       <PageHeader title={role.displayName} description={role.description ?? "Role details, current holders and change history."} actions={<Badge tone={role.systemTemplate ? "accent" : "neutral"}>{role.systemTemplate ? "Template" : "Custom"}</Badge>} />
       <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_360px]">
         <Card>

@@ -4,18 +4,28 @@ export default defineConfig({
   testDir: "./tests/e2e",
   webServer: {
     command: "npm run dev",
-    url: "http://127.0.0.1:3000",
+    url: "http://localhost:3000",
     reuseExistingServer: false,
     timeout: 120_000,
   },
   use: {
-    baseURL: "http://127.0.0.1:3000",
+    baseURL: "http://localhost:3000",
     storageState: {
       cookies: [
         {
           name: "kingdomflow_demo_user",
           value: "superadmin@kingdomflow.co.ke",
           domain: "127.0.0.1",
+          path: "/",
+          expires: -1,
+          httpOnly: true,
+          secure: false,
+          sameSite: "Lax",
+        },
+        {
+          name: "kingdomflow_demo_user",
+          value: "superadmin@kingdomflow.co.ke",
+          domain: "localhost",
           path: "/",
           expires: -1,
           httpOnly: true,

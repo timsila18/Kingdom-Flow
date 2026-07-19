@@ -2,6 +2,8 @@ import { AuthShell } from "@/components/shells";
 import { ButtonLink, Card } from "@/components/ui";
 import { getVisibleTenants } from "@/lib/tenant-store";
 
+export const dynamic = "force-dynamic";
+
 export default async function WorkspaceSelectorPage() {
   const tenants = await getVisibleTenants();
   return (

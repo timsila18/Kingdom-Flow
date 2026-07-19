@@ -2,15 +2,16 @@ import { notFound } from "next/navigation";
 import { WorkspaceShell } from "@/components/shells";
 import { Card, PageHeader } from "@/components/ui";
 import { subscriptionPlans } from "@/lib/constants";
-import { getTenantBySlug, getTenantSubscription } from "@/lib/data";
+import { getTenantSubscription } from "@/lib/data";
+import { getVisibleTenantBySlug } from "@/lib/tenant-store";
 
 export default async function SubscriptionPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const tenant = getTenantBySlug(slug);
+  const tenant = await getVisibleTenantBySlug(slug);
   if (!tenant) notFound();
   const current = getTenantSubscription(tenant.id);
   return (
-    <WorkspaceShell tenantName={tenant.publicName}>
+    <WorkspaceShell tenantName={tenant.publicName} tenantSlug={tenant.slug}>
       <PageHeader title="Subscription overview" description={`Current plan: ${current.plan.name}. Live M-Pesa charging is not implemented in Prompt 1.`} />
       <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {subscriptionPlans.map((plan) => (

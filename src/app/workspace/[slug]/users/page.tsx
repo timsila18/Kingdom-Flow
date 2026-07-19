@@ -1,15 +1,16 @@
 import { notFound } from "next/navigation";
 import { WorkspaceShell } from "@/components/shells";
 import { Badge, Card, PageHeader } from "@/components/ui";
-import { getTenantBySlug, invitations, memberships, profiles, roles } from "@/lib/data";
+import { invitations, memberships, profiles, roles } from "@/lib/data";
+import { getVisibleTenantBySlug } from "@/lib/tenant-store";
 
 export default async function UsersPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const tenant = getTenantBySlug(slug);
+  const tenant = await getVisibleTenantBySlug(slug);
   if (!tenant) notFound();
   const tenantMemberships = memberships.filter((membership) => membership.tenantId === tenant.id);
   return (
-    <WorkspaceShell tenantName={tenant.publicName}>
+    <WorkspaceShell tenantName={tenant.publicName} tenantSlug={tenant.slug}>
       <PageHeader title="Users foundation" description="Invite-based workspace membership with role and scope assignment. Membership is never created merely because an email was typed." />
       <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_360px]">
         <Card>
@@ -25,11 +26,13 @@ export default async function UsersPage({ params }: { params: Promise<{ slug: st
         </Card>
         <Card>
           <h2 className="text-lg font-semibold">Invite user</h2>
-          <form className="mt-4 grid gap-3" action="/auth/accept-invitation/kf-demo-invite">
-            <input className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground" placeholder="Email address" type="email" />
-            <select className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground">{roles.map((role) => <option key={role.id}>{role.displayName}</option>)}</select>
-            <select className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground"><option>Tenant scope</option><option>Branch scope</option><option>Unit scope</option></select>
-            <textarea className="min-h-24 rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground" placeholder="Optional welcome message" />
+          <form className="mt-4 grid gap-3" action={`/workspace/${tenant.slug}/actions`} method="post">
+            <input type="hidden" name="returnTo" value={`/workspace/${tenant.slug}/users`} />
+            <input type="hidden" name="action" value="invitation-created" />
+            <input name="email" className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground" placeholder="Email address" type="email" required />
+            <select name="role" className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground">{roles.map((role) => <option key={role.id}>{role.displayName}</option>)}</select>
+            <select name="scope" className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground"><option>Tenant scope</option><option>Branch scope</option><option>Unit scope</option></select>
+            <textarea name="message" className="min-h-24 rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground" placeholder="Optional welcome message" />
             <button className="rounded-md border border-accent/70 bg-primary px-4 py-2.5 text-sm font-semibold text-black">Create secure invitation</button>
           </form>
           <div className="mt-5 text-sm text-muted">Pending: {invitations.filter((invite) => invite.tenantId === tenant.id && invite.status === "pending").length}</div>

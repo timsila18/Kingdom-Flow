@@ -4,6 +4,8 @@ import { Badge, Card, PageHeader } from "@/components/ui";
 import { getTenantSubscription } from "@/lib/data";
 import { getVisibleTenantBySlug } from "@/lib/tenant-store";
 
+export const dynamic = "force-dynamic";
+
 export default async function PlatformChurchDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const tenant = await getVisibleTenantBySlug(slug);

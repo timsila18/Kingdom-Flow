@@ -75,7 +75,7 @@ export function RolesPermissionsPanel({ slug }: { slug: string }) {
   );
 }
 
-export function RoleBuilderPanel() {
+export function RoleBuilderPanel({ slug }: { slug: string }) {
   const selected = ["programme.view", "programme.update", "communication.create", "communication.send_scoped"];
   const warnings = getRoleWarnings(selected);
   return (
@@ -83,10 +83,12 @@ export function RoleBuilderPanel() {
       <PageHeader title="Role Builder" description="Build roles from stable permission keys, assign category, authority level, default scope and approval rules." />
       <div className="mt-8 grid gap-6 lg:grid-cols-[360px_1fr]">
         <Card>
-          <form className="grid gap-3" action="/workspace/kings-grace/authority/approvals">
-            <input className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground" defaultValue="National Youth Coordinator" />
-            <textarea className="min-h-24 rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground" defaultValue="Coordinates youth programmes with scoped communication permissions." />
-            <select className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground" defaultValue="unit"><option value="tenant">Entire church</option><option value="unit">Selected organizational unit</option><option value="branch">Selected branch</option><option value="self">Self only</option></select>
+          <form className="grid gap-3" action={`/workspace/${slug}/actions`} method="post">
+            <input type="hidden" name="returnTo" value={`/workspace/${slug}/authority/approvals`} />
+            <input type="hidden" name="action" value="role-approval-created" />
+            <input name="roleName" className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground" defaultValue="National Youth Coordinator" />
+            <textarea name="description" className="min-h-24 rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground" defaultValue="Coordinates youth programmes with scoped communication permissions." />
+            <select name="scope" className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground" defaultValue="unit"><option value="tenant">Entire church</option><option value="unit">Selected organizational unit</option><option value="branch">Selected branch</option><option value="self">Self only</option></select>
             <label className="flex gap-3 text-sm"><input type="checkbox" defaultChecked /> Requires approval before assignment</label>
             <label className="flex gap-3 text-sm"><input type="checkbox" defaultChecked /> May receive delegated authority</label>
             <button className="rounded-md border border-accent/70 bg-primary px-4 py-2.5 text-sm font-semibold text-black">Save role and create approval request</button>
@@ -97,7 +99,7 @@ export function RoleBuilderPanel() {
           <div className="mt-4 grid gap-4 md:grid-cols-2">
             {permissionGroups.map((group) => (
               <div key={group.key} className="rounded-md border border-border p-4">
-                <div className="flex items-center justify-between gap-3"><p className="font-semibold">{group.label}</p><Link href="/workspace/kings-grace/authority/role-builder" className="text-xs text-accent">Select all</Link></div>
+                <div className="flex items-center justify-between gap-3"><p className="font-semibold">{group.label}</p><Link href={`/workspace/${slug}/authority/role-builder`} className="text-xs text-accent">Select all</Link></div>
                 <div className="mt-3 grid gap-2 text-sm">{group.permissions.slice(0, 6).map((permission) => <label key={permission} className="flex gap-2"><input type="checkbox" defaultChecked={selected.includes(permission)} />{permission}</label>)}</div>
               </div>
             ))}
@@ -209,7 +211,7 @@ export function ApprovalsPanel() {
   );
 }
 
-export function ApprovalDetailPanel({ requestId }: { requestId: string }) {
+export function ApprovalDetailPanel({ requestId, slug }: { requestId: string; slug: string }) {
   const request = approvalRequests.find((item) => item.id === requestId);
   if (!request) return <EmptyPhase title="Approval not found" description="The request may have been archived or belongs to another tenant." />;
   const history = getApprovalHistory(request.id);
@@ -217,7 +219,7 @@ export function ApprovalDetailPanel({ requestId }: { requestId: string }) {
     <>
       <PageHeader title={request.summary} description={request.reason} />
       <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_340px]">
-        <Card><h2 className="font-semibold">Decision controls</h2><div className="mt-4 flex flex-wrap gap-2">{["Approve", "Reject", "Return for revision", "Recuse"].map((item) => <Link key={item} href="/workspace/kings-grace/audit" className="rounded-md border border-border px-3 py-2 text-sm font-semibold hover:border-accent">{item}</Link>)}</div></Card>
+        <Card><h2 className="font-semibold">Decision controls</h2><div className="mt-4 flex flex-wrap gap-2">{["Approve", "Reject", "Return for revision", "Recuse"].map((item) => <Link key={item} href={`/workspace/${slug}/audit?action=${encodeURIComponent(item.toLowerCase().replaceAll(" ", "-"))}`} className="rounded-md border border-border px-3 py-2 text-sm font-semibold hover:border-accent">{item}</Link>)}</div></Card>
         <Card><h2 className="font-semibold">History</h2><div className="mt-4 grid gap-2">{history.map((item) => <div key={item.id} className="rounded-md bg-surface-muted p-3 text-sm">{item.decision}: {item.comment}</div>)}</div></Card>
       </div>
     </>

@@ -1,15 +1,16 @@
 import { notFound } from "next/navigation";
 import { WorkspaceShell } from "@/components/shells";
 import { Badge, Card, PageHeader } from "@/components/ui";
-import { branches, getTenantBySlug } from "@/lib/data";
+import { branches } from "@/lib/data";
+import { getVisibleTenantBySlug } from "@/lib/tenant-store";
 
 export default async function BranchesPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const tenant = getTenantBySlug(slug);
+  const tenant = await getVisibleTenantBySlug(slug);
   if (!tenant) notFound();
   const tenantBranches = branches.filter((branch) => branch.tenantId === tenant.id);
   return (
-    <WorkspaceShell tenantName={tenant.publicName}>
+    <WorkspaceShell tenantName={tenant.publicName} tenantSlug={tenant.slug}>
       <PageHeader title={`${tenant.branchTerminology} directory`} description="Branch and campus profiles are backed by generic organization units and prepared for scope-aware access control." />
       <div className="mt-8 grid gap-4 md:grid-cols-2">
         {tenantBranches.map((branch) => (
