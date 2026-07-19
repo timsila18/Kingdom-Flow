@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { tenants } from "@/lib/data";
-import { demoTenantsCookie, readDemoTenants, serializeDemoTenants, setDemoTenantStatus, updateDemoTenantStatus } from "@/lib/tenant-store";
+import { legacyDemoTenantsCookie, readRegisteredTenants, registeredTenantsCookie, serializeRegisteredTenants, setRegisteredTenantStatus, updateRegisteredTenantStatus } from "@/lib/tenant-store";
 import type { TenantStatus } from "@/lib/types";
 
 const statusByDecision: Record<string, TenantStatus> = {
@@ -12,7 +11,7 @@ const statusByDecision: Record<string, TenantStatus> = {
 };
 
 function readCookieValue(request: Request) {
-  const match = request.headers.get("cookie")?.match(new RegExp(`${demoTenantsCookie}=([^;]+)`));
+  const match = request.headers.get("cookie")?.match(new RegExp(`${registeredTenantsCookie}=([^;]+)`));
   return match ? decodeURIComponent(match[1]) : null;
 }
 
@@ -26,20 +25,21 @@ export async function POST(request: Request, { params }: { params: Promise<{ slu
     return NextResponse.redirect(new URL(`/platform/churches/${slug}`, request.url), 303);
   }
 
-  const current = readDemoTenants(readCookieValue(request));
-  const tenant = current.find((item) => item.slug === slug) ?? tenants.find((item) => item.slug === slug);
+  const current = readRegisteredTenants(readCookieValue(request));
+  const tenant = current.find((item) => item.slug === slug);
   if (!tenant) {
     return NextResponse.redirect(new URL("/platform/churches", request.url), 303);
   }
 
-  const updatedTenants = current.some((item) => item.slug === slug) ? updateDemoTenantStatus(current, slug, status) : setDemoTenantStatus(current, tenant, status);
+  const updatedTenants = current.some((item) => item.slug === slug) ? updateRegisteredTenantStatus(current, slug, status) : setRegisteredTenantStatus(current, tenant, status);
   const response = NextResponse.redirect(new URL(`/platform/churches/${slug}?updated=${status}`, request.url), 303);
-  response.cookies.set(demoTenantsCookie, serializeDemoTenants(updatedTenants), {
+  response.cookies.set(registeredTenantsCookie, serializeRegisteredTenants(updatedTenants), {
     httpOnly: true,
     maxAge: 60 * 60 * 24 * 30,
     path: "/",
     sameSite: "lax",
   });
+  response.cookies.delete(legacyDemoTenantsCookie);
 
   return response;
 }

@@ -16,7 +16,7 @@ export default function Home() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <ButtonLink href="/onboarding">Create church account</ButtonLink>
-            <ButtonLink href="/workspace/kings-grace" variant="secondary">Open demo workspace</ButtonLink>
+            <ButtonLink href="/auth/sign-in" variant="secondary">Sign in</ButtonLink>
           </div>
         </div>
         <Card className="bg-primary text-white">

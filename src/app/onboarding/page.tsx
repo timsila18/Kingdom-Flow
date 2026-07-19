@@ -35,40 +35,40 @@ export default function OnboardingPage() {
           <Card>
             <form className="grid gap-6" action="/onboarding/submit" method="post">
               <Section number={1} title="Ministry Identity">
-                <label className={labelClass}>Ministry / church name<input name="publicName" className={inputClass} defaultValue="Hope Assembly" required /></label>
-                <label className={labelClass}>Legal name<input name="legalName" className={inputClass} defaultValue="Hope Assembly" required /></label>
-                <label className={labelClass}>Preferred workspace slug<input name="slug" className={inputClass} defaultValue="hope-assembly" required /></label>
+                <label className={labelClass}>Ministry / church name<input name="publicName" className={inputClass} placeholder="Enter church name" required /></label>
+                <label className={labelClass}>Legal name<input name="legalName" className={inputClass} placeholder="Registered legal name" required /></label>
+                <label className={labelClass}>Preferred workspace slug<input name="slug" className={inputClass} placeholder="church-workspace-slug" required /></label>
                 <label className={labelClass}>Church type<select name="churchType" className={inputClass} defaultValue="Independent church"><option>Independent church</option><option>Denominational church</option><option>Multi-branch church</option><option>Church plant</option><option>Fellowship ministry</option></select></label>
-                <label className={labelClass}>Denomination / network<input name="denominationOrNetwork" className={inputClass} defaultValue="Independent" /></label>
-                <label className={labelClass}>Founding year<input name="foundingYear" className={inputClass} defaultValue="2024" /></label>
-                <label className={labelClass}>Country<input name="country" className={inputClass} defaultValue="Kenya" /></label>
-                <label className={labelClass}>County / region<input name="region" className={inputClass} defaultValue="Kiambu County" /></label>
-                <label className={labelClass}>Physical address<input name="physicalAddress" className={inputClass} defaultValue="Ruiru" /></label>
-                <label className={labelClass}>Website / social page<input name="website" className={inputClass} defaultValue="https://example.org" /></label>
+                <label className={labelClass}>Denomination / network<input name="denominationOrNetwork" className={inputClass} placeholder="Optional" /></label>
+                <label className={labelClass}>Founding year<input name="foundingYear" className={inputClass} placeholder="YYYY" /></label>
+                <label className={labelClass}>Country<input name="country" className={inputClass} placeholder="Country" /></label>
+                <label className={labelClass}>County / region<input name="region" className={inputClass} placeholder="County, region or state" /></label>
+                <label className={labelClass}>Physical address<input name="physicalAddress" className={inputClass} placeholder="Church address" /></label>
+                <label className={labelClass}>Website / social page<input name="website" className={inputClass} placeholder="https://..." /></label>
               </Section>
 
               <Section number={2} title="Leadership">
-                <label className={labelClass}>Principal leader title<input name="ministryHeadTitle" className={inputClass} defaultValue="Senior Pastor" /></label>
-                <label className={labelClass}>Principal leader name<input name="principalLeaderName" className={inputClass} defaultValue="Pastor Grace Wanjiku" /></label>
-                <label className={labelClass}>Leader email<input name="principalLeaderEmail" type="email" className={inputClass} defaultValue="pastor@hope.test" /></label>
-                <label className={labelClass}>Leader phone<input name="principalLeaderPhone" className={inputClass} defaultValue="+254700000003" /></label>
-                <label className={labelClass}>Church contact email<input name="contactEmail" type="email" className={inputClass} defaultValue="hello@hope.test" required /></label>
-                <label className={labelClass}>Church contact phone<input name="contactPhone" className={inputClass} defaultValue="+254700000002" /></label>
+                <label className={labelClass}>Principal leader title<input name="ministryHeadTitle" className={inputClass} placeholder="Senior pastor, bishop, overseer..." /></label>
+                <label className={labelClass}>Principal leader name<input name="principalLeaderName" className={inputClass} placeholder="Leader full name" /></label>
+                <label className={labelClass}>Leader email<input name="principalLeaderEmail" type="email" className={inputClass} placeholder="leader@example.org" /></label>
+                <label className={labelClass}>Leader phone<input name="principalLeaderPhone" className={inputClass} placeholder="Phone number" /></label>
+                <label className={labelClass}>Church contact email<input name="contactEmail" type="email" className={inputClass} placeholder="church@example.org" required /></label>
+                <label className={labelClass}>Church contact phone<input name="contactPhone" className={inputClass} placeholder="Church phone" /></label>
               </Section>
 
               <Section number={3} title="Organizational Model">
                 <label className={labelClass}>Governance model<select name="governanceModel" className={inputClass} defaultValue="Senior pastor led"><option>Senior pastor led</option><option>Founder led</option><option>Board governed</option><option>Council governed</option><option>Bishop / overseer led</option><option>Hybrid</option></select></label>
                 <label className={labelClass}>Approval model<select name="approvalModel" className={inputClass} defaultValue="Two-person approval for sensitive actions"><option>Single admin for routine actions</option><option>Two-person approval for sensitive actions</option><option>Board approval for finance</option><option>Pastor approval for ministry changes</option><option>Custom workflow</option></select></label>
-                <label className={labelClass}>Preferred branch label<input name="branchTerminology" className={inputClass} defaultValue="Branch" /></label>
-                <label className={labelClass}>Preferred member label<input name="membershipTerminology" className={inputClass} defaultValue="Member" /></label>
-                <label className={labelClass}>Preferred small-group label<input name="smallGroupTerminology" className={inputClass} defaultValue="Fellowship" /></label>
-                <label className={labelClass}>Primary service day<input name="primaryServiceDay" className={inputClass} defaultValue="Sunday" /></label>
+                <label className={labelClass}>Preferred branch label<input name="branchTerminology" className={inputClass} placeholder="Branch, campus, parish..." /></label>
+                <label className={labelClass}>Preferred member label<input name="membershipTerminology" className={inputClass} placeholder="Member, believer, partner..." /></label>
+                <label className={labelClass}>Preferred small-group label<input name="smallGroupTerminology" className={inputClass} placeholder="Cell, fellowship, connect group..." /></label>
+                <label className={labelClass}>Primary service day<input name="primaryServiceDay" className={inputClass} placeholder="Sunday, Saturday..." /></label>
               </Section>
 
               <Section number={4} title="Size And Subscription">
-                <label className={labelClass}>Estimated members<input name="estimatedMembers" type="number" min="0" className={inputClass} defaultValue="250" /></label>
-                <label className={labelClass}>Average weekly attendance<input name="averageAttendance" type="number" min="0" className={inputClass} defaultValue="180" /></label>
-                <label className={labelClass}>Branches planned<input name="branchesPlanned" type="number" min="1" className={inputClass} defaultValue="1" /></label>
+                <label className={labelClass}>Estimated members<input name="estimatedMembers" type="number" min="0" className={inputClass} placeholder="0" /></label>
+                <label className={labelClass}>Average weekly attendance<input name="averageAttendance" type="number" min="0" className={inputClass} placeholder="0" /></label>
+                <label className={labelClass}>Branches planned<input name="branchesPlanned" type="number" min="1" className={inputClass} placeholder="1" /></label>
                 <label className={labelClass}>Subscription tier<select name="subscriptionTier" className={inputClass} defaultValue="Starter"><option>Starter</option><option>Growth</option><option>Multi-Branch</option><option>Network / Diocese</option></select></label>
               </Section>
 
@@ -78,10 +78,10 @@ export default function OnboardingPage() {
               </Section>
 
               <Section number={6} title="Initial Structure">
-                <label className={labelClass}>First branch / campus name<input name="firstBranchName" className={inputClass} defaultValue="Main Branch" /></label>
-                <label className={labelClass}>First branch location<input name="firstBranchLocation" className={inputClass} defaultValue="Ruiru" /></label>
-                <label className={`${labelClass} md:col-span-2`}>Departments to create<textarea name="departments" className={`${inputClass} min-h-28`} defaultValue={"Worship\nUshers\nMedia\nChildren\nDiscipleship\nPastoral Care\nFinance\nAdministration"} /></label>
-                <label className={`${labelClass} md:col-span-2`}>Programmes to start with<textarea name="programmes" className={`${inputClass} min-h-24`} defaultValue={"Foundation Class\nDiscipleship\nMembership Class\nLeadership Academy"} /></label>
+                <label className={labelClass}>First branch / campus name<input name="firstBranchName" className={inputClass} placeholder="Main branch" /></label>
+                <label className={labelClass}>First branch location<input name="firstBranchLocation" className={inputClass} placeholder="Location" /></label>
+                <label className={`${labelClass} md:col-span-2`}>Departments to create<textarea name="departments" className={`${inputClass} min-h-28`} placeholder={"One per line, for example:\nWorship\nMedia\nDiscipleship"} /></label>
+                <label className={`${labelClass} md:col-span-2`}>Programmes to start with<textarea name="programmes" className={`${inputClass} min-h-24`} placeholder={"One per line, for example:\nFoundation Class\nDiscipleship"} /></label>
               </Section>
 
               <fieldset className="rounded-lg border border-border p-4">

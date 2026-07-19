@@ -17,9 +17,7 @@ export default async function WorkspaceSelectorPage() {
           </Card>
         ))}
       </div>
-      <div className="mt-5">
-        <ButtonLink href="/auth/test-logins" variant="secondary">View test logins</ButtonLink>
-      </div>
+      {!tenants.length ? <p className="mt-5 text-sm leading-6 text-muted">No approved church workspaces are available yet.</p> : null}
     </AuthShell>
   );
 }

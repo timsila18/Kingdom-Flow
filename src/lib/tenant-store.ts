@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
-import { tenants } from "./data";
 import type { Tenant, TenantStatus } from "./types";
 
-export const demoTenantsCookie = "kingdomflow_demo_tenants";
+export const registeredTenantsCookie = "kingdomflow_registered_tenants";
+export const legacyDemoTenantsCookie = "kingdomflow_demo_tenants";
 
 const defaultTenantColors = {
   primaryColor: "#10120d",
@@ -20,7 +20,7 @@ export function slugifyTenantName(value: string) {
     .slice(0, 72);
 }
 
-export function readDemoTenants(rawValue?: string | null): Tenant[] {
+export function readRegisteredTenants(rawValue?: string | null): Tenant[] {
   if (!rawValue) return [];
 
   try {
@@ -33,14 +33,13 @@ export function readDemoTenants(rawValue?: string | null): Tenant[] {
   }
 }
 
-export function serializeDemoTenants(value: Tenant[]) {
+export function serializeRegisteredTenants(value: Tenant[]) {
   return JSON.stringify(value);
 }
 
-export function mergeTenants(demoTenants: Tenant[]) {
+export function mergeTenants(registeredTenants: Tenant[]) {
   const bySlug = new Map<string, Tenant>();
-  for (const tenant of tenants) bySlug.set(tenant.slug, tenant);
-  for (const tenant of demoTenants) bySlug.set(tenant.slug, tenant);
+  for (const tenant of registeredTenants) bySlug.set(tenant.slug, tenant);
   return [...bySlug.values()].sort((first, second) => {
     const firstPending = first.status === "under_review" ? 0 : 1;
     const secondPending = second.status === "under_review" ? 0 : 1;
@@ -50,7 +49,7 @@ export function mergeTenants(demoTenants: Tenant[]) {
 
 export async function getVisibleTenants() {
   const cookieStore = await cookies();
-  return mergeTenants(readDemoTenants(cookieStore.get(demoTenantsCookie)?.value));
+  return mergeTenants(readRegisteredTenants(cookieStore.get(registeredTenantsCookie)?.value));
 }
 
 export async function getVisibleTenantBySlug(slug: string) {
@@ -81,7 +80,7 @@ export function buildTenantFromRegistration(formData: FormData, status: TenantSt
     country: String(formData.get("country") ?? "").trim() || "Kenya",
     region: String(formData.get("region") ?? "").trim() || "Unspecified region",
     physicalAddress: String(formData.get("physicalAddress") ?? "").trim() || "Not provided",
-    contactEmail: String(formData.get("contactEmail") ?? "").trim() || `hello@${slug}.test`,
+    contactEmail: String(formData.get("contactEmail") ?? "").trim() || "Not provided",
     contactPhone: String(formData.get("contactPhone") ?? "").trim() || "Not provided",
     timeZone: "Africa/Nairobi",
     defaultCurrency: "KES",
@@ -112,8 +111,8 @@ export function buildTenantFromRegistration(formData: FormData, status: TenantSt
       brandTone: String(formData.get("brandTone") ?? "").trim() || "Warm, dignified and modern",
       logoStatus: String(formData.get("logoStatus") ?? "").trim() || "Use default KingdomFlow mark until uploaded",
       primaryServiceDay: String(formData.get("primaryServiceDay") ?? "").trim() || "Sunday",
-      departments: departments.length ? departments : ["Worship", "Ushers", "Media", "Children", "Discipleship", "Pastoral Care"],
-      programmes: programmes.length ? programmes : ["Foundation Class", "Discipleship", "Membership Class"],
+      departments,
+      programmes,
       firstBranchName: String(formData.get("firstBranchName") ?? "").trim() || "Main Branch",
       firstBranchLocation: String(formData.get("firstBranchLocation") ?? "").trim() || String(formData.get("physicalAddress") ?? "").trim() || "Not provided",
       declarations: [
@@ -127,13 +126,13 @@ export function buildTenantFromRegistration(formData: FormData, status: TenantSt
   } satisfies Tenant;
 }
 
-export function upsertDemoTenant(demoTenants: Tenant[], tenant: Tenant) {
-  const withoutExisting = demoTenants.filter((item) => item.slug !== tenant.slug);
+export function upsertRegisteredTenant(registeredTenants: Tenant[], tenant: Tenant) {
+  const withoutExisting = registeredTenants.filter((item) => item.slug !== tenant.slug);
   return [tenant, ...withoutExisting].slice(0, 12);
 }
 
-export function updateDemoTenantStatus(demoTenants: Tenant[], slug: string, status: TenantStatus): Tenant[] {
-  return demoTenants.map((tenant) =>
+export function updateRegisteredTenantStatus(registeredTenants: Tenant[], slug: string, status: TenantStatus): Tenant[] {
+  return registeredTenants.map((tenant) =>
     tenant.slug === slug
       ? {
           ...tenant,
@@ -146,7 +145,7 @@ export function updateDemoTenantStatus(demoTenants: Tenant[], slug: string, stat
   );
 }
 
-export function setDemoTenantStatus(demoTenants: Tenant[], tenant: Tenant, status: TenantStatus) {
+export function setRegisteredTenantStatus(registeredTenants: Tenant[], tenant: Tenant, status: TenantStatus) {
   const updatedTenant: Tenant = {
     ...tenant,
     status,
@@ -155,5 +154,5 @@ export function setDemoTenantStatus(demoTenants: Tenant[], tenant: Tenant, statu
     updatedAt: new Date().toISOString(),
   };
 
-  return upsertDemoTenant(demoTenants, updatedTenant);
+  return upsertRegisteredTenant(registeredTenants, updatedTenant);
 }

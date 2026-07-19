@@ -10,31 +10,6 @@ export default defineConfig({
   },
   use: {
     baseURL: "http://localhost:3000",
-    storageState: {
-      cookies: [
-        {
-          name: "kingdomflow_demo_user",
-          value: "superadmin@kingdomflow.co.ke",
-          domain: "127.0.0.1",
-          path: "/",
-          expires: -1,
-          httpOnly: true,
-          secure: false,
-          sameSite: "Lax",
-        },
-        {
-          name: "kingdomflow_demo_user",
-          value: "superadmin@kingdomflow.co.ke",
-          domain: "localhost",
-          path: "/",
-          expires: -1,
-          httpOnly: true,
-          secure: false,
-          sameSite: "Lax",
-        },
-      ],
-      origins: [],
-    },
     trace: "on-first-retry",
   },
   projects: [

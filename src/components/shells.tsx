@@ -3,18 +3,18 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { Bell, ChevronDown, LayoutDashboard } from "lucide-react";
 import { navigationModules } from "@/lib/constants";
-import { getCurrentDemoUser } from "@/lib/demo-auth";
+import { getCurrentUser } from "@/lib/app-auth";
 import { ButtonLink } from "./ui";
 
-async function DemoUserMenu({ compact = false }: { compact?: boolean }) {
-  const user = await getCurrentDemoUser();
+async function UserMenu({ compact = false }: { compact?: boolean }) {
+  const user = await getCurrentUser();
   if (!user) return <ButtonLink href="/auth/sign-in">Sign in</ButtonLink>;
   return (
     <div className="flex items-center gap-2 text-sm">
-      <Link href="/auth/test-logins" className="hidden rounded-md border border-border bg-surface-muted px-3 py-2 text-left leading-tight text-foreground sm:block">
+      <span className="hidden rounded-md border border-border bg-surface-muted px-3 py-2 text-left leading-tight text-foreground sm:block">
         <span className="block font-semibold">{compact ? user.role : user.name}</span>
         {!compact ? <span className="block text-xs text-muted">{user.role}</span> : null}
-      </Link>
+      </span>
       <a href="/auth/logout" className="inline-flex min-h-10 items-center justify-center rounded-md border border-border bg-surface px-4 text-sm font-semibold text-foreground shadow-[0_1px_0_rgba(255,255,255,.12)_inset] transition hover:-translate-y-0.5 hover:border-accent hover:bg-surface-muted">Logout</a>
     </div>
   );
@@ -30,10 +30,9 @@ export function MarketingShell({ children }: { children: ReactNode }) {
         </Link>
         <nav className="hidden items-center gap-6 text-sm text-muted md:flex">
           <Link href="/onboarding">Create church account</Link>
-          <Link href="/platform">Platform admin</Link>
-          <Link href="/workspace/kings-grace">Demo workspace</Link>
+          <Link href="/auth/sign-in">Sign in</Link>
         </nav>
-        <DemoUserMenu compact />
+        <UserMenu compact />
       </header>
       {children}
     </main>
@@ -75,7 +74,7 @@ export function WorkspaceShell({ children, tenantName, tenantSlug = "kings-grace
               <Bell size={18} />
             </a>
             <ButtonLink href="/auth/workspaces" variant="secondary">Switch</ButtonLink>
-            <DemoUserMenu />
+            <UserMenu />
           </div>
         </header>
         <nav className="kf-scrollbar flex gap-2 overflow-x-auto border-b border-border/70 bg-surface/80 px-5 py-3 text-sm lg:hidden">
@@ -104,7 +103,7 @@ export function PlatformShell({ children }: { children: ReactNode }) {
             <Link href="/platform/churches">Churches</Link>
             <Link href="/platform/plans">Plans</Link>
             <Link href="/platform/audit">Audit</Link>
-            <DemoUserMenu compact />
+            <UserMenu compact />
           </div>
         </div>
       </header>
