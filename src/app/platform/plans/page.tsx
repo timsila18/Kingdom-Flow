@@ -5,7 +5,7 @@ import { subscriptionPlans } from "@/lib/constants";
 export default function PlatformPlansPage() {
   return (
     <PlatformShell>
-      <PageHeader title="Subscription plans" description="Plan catalog for manual platform assignment in Prompt 1. Live charging is reserved for a future billing phase." />
+      <PageHeader title="Subscription plans" />
       <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {subscriptionPlans.map((plan) => (
           <Card key={plan.id}>

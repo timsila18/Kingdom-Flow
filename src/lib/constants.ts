@@ -687,27 +687,12 @@ export const permissionConflicts = [
 ] as const;
 
 export const systemRoleTemplates = [
-  "Ministry Principal Authority",
-  "Senior Pastor / Ministry Head",
-  "Executive Pastor",
-  "Church Administrator",
-  "Regional Leader",
-  "Zonal Leader",
-  "Branch Pastor",
-  "Associate Pastor",
-  "Pastoral Care Minister",
-  "Cell or Fellowship Leader",
-  "Department Head",
-  "Programme Coordinator",
-  "Chief Finance Officer",
-  "Accountant",
-  "Treasurer",
-  "HR Officer",
-  "Events Coordinator",
-  "Children's Ministry Leader",
-  "Youth Ministry Leader",
-  "Communications Officer",
-  "Volunteer",
+  "Platform Admin",
+  "Church Admin",
+  "Church Leader",
+  "Ministry Coordinator",
+  "Care & Follow-up Worker",
+  "Finance Officer",
   "Member",
 ];
 

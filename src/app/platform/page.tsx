@@ -1,51 +1,116 @@
+import Link from "next/link";
+import { Church, Plus, ArrowRight } from "lucide-react";
 import { PlatformShell } from "@/components/shells";
-import { Badge, ButtonLink, Card, PageHeader, StatCard } from "@/components/ui";
+import { Badge, ButtonLink, PageHeader } from "@/components/ui";
 import { getVisibleTenants } from "@/lib/tenant-store";
-
 export const dynamic = "force-dynamic";
-
-export default async function PlatformPage() {
-  const tenants = await getVisibleTenants();
-  const pending = tenants.filter((tenant) => tenant.status === "under_review").length;
-  const approved = tenants.filter((tenant) => tenant.status === "approved").length;
-
+export default async function PlatformPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ tab?: string; error?: string }>;
+}) {
+  const query = await searchParams;
+  const tab = ["approved", "other"].includes(query.tab ?? "")
+    ? query.tab!
+    : "pending";
+  const churches = await getVisibleTenants();
+  const selected = churches.filter((church) =>
+    tab === "approved"
+      ? church.status === "approved"
+      : tab === "pending"
+        ? ["submitted", "under_review", "needs_clarification"].includes(
+            church.status,
+          )
+        : ![
+            "approved",
+            "submitted",
+            "under_review",
+            "needs_clarification",
+          ].includes(church.status),
+  );
   return (
     <PlatformShell>
-      <PageHeader title="Platform administration" description="Visible and audited platform operations for church registration review, plan assignment and tenant metadata oversight." actions={<ButtonLink href="/platform/churches">Review churches</ButtonLink>} />
-      <div className="mt-8 grid gap-4 md:grid-cols-4">
-        <StatCard label="Registered churches" value={tenants.length} detail="Submitted tenant records." />
-        <StatCard label="Pending approval" value={pending} detail="Submitted or under review." />
-        <StatCard label="Approved churches" value={approved} detail="Active workspaces." />
-        <StatCard label="Suspended churches" value={tenants.filter((tenant) => tenant.status === "suspended").length} detail="Temporarily unavailable workspaces." />
-      </div>
-      <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_360px]">
-        <Card>
-          <h2 className="text-lg font-semibold">Church review queue</h2>
-          <div className="mt-4 overflow-x-auto">
-            {tenants.length ? (
-              <table className="w-full text-left text-sm">
-                <thead className="text-muted"><tr><th className="py-2">Church</th><th>Status</th><th>Region</th><th>Action</th></tr></thead>
-                <tbody>
-                  {tenants.map((tenant) => (
-                    <tr key={tenant.id} className="border-t border-border">
-                      <td className="py-3 font-medium">{tenant.publicName}</td>
-                      <td><Badge tone={tenant.status === "approved" ? "success" : tenant.status === "rejected" || tenant.status === "suspended" ? "danger" : "warning"}>{tenant.status.replace("_", " ")}</Badge></td>
-                      <td>{tenant.region}</td>
-                      <td><ButtonLink href={`/platform/churches/${tenant.slug}`} variant="secondary">Inspect</ButtonLink></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <p className="py-6 text-sm text-muted">No church registrations have been submitted yet.</p>
-            )}
-          </div>
-        </Card>
-        <Card>
-          <h2 className="text-lg font-semibold">Recent platform audit</h2>
-          <p className="mt-4 text-sm leading-6 text-muted">Audit entries will appear after real platform actions are recorded.</p>
-        </Card>
-      </div>
+      <PageHeader
+        title="Churches"
+        actions={
+          <ButtonLink href="/onboarding">
+            <Plus size={18} />
+            Add church
+          </ButtonLink>
+        }
+      />
+      {query.error ? (
+        <p
+          role="alert"
+          className="mt-4 rounded-md border border-red-200 bg-red-50 p-4 text-danger"
+        >
+          {query.error}
+        </p>
+      ) : null}
+      <nav
+        aria-label="Church status"
+        className="mt-6 flex flex-wrap gap-3 border-b border-border"
+      >
+        {[
+          ["pending", "Waiting for approval"],
+          ["approved", "Approved churches"],
+          ["other", "Other churches"],
+        ].map(([key, label]) => (
+          <Link
+            key={key}
+            href={`/platform/churches?tab=${key}`}
+            aria-current={tab === key ? "page" : undefined}
+            className={`min-h-12 border-b-2 px-3 py-3 text-sm font-medium ${tab === key ? "border-primary text-primary" : "border-transparent text-muted"}`}
+          >
+            {label}
+          </Link>
+        ))}
+      </nav>
+      {selected.length ? (
+        <div className="mt-4 divide-y divide-border">
+          {selected.map((church) => (
+            <div
+              key={church.id}
+              className="flex flex-wrap items-center justify-between gap-4 py-5"
+            >
+              <div>
+                <h2 className="font-semibold">{church.publicName}</h2>
+                <p className="mt-1 text-sm text-muted">
+                  {church.region} {church.country}
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <Badge
+                  tone={church.status === "approved" ? "success" : "warning"}
+                >
+                  {church.status.replaceAll("_", " ")}
+                </Badge>
+                <ButtonLink
+                  href={`/platform/churches/${church.slug}`}
+                  variant="secondary"
+                >
+                  {church.status === "approved" ? "View church" : "Review"}
+                  <ArrowRight size={16} />
+                </ButtonLink>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <section className="flex min-h-80 flex-col items-center justify-center gap-4 py-12 text-center">
+          <Church size={52} className="text-primary" />
+          <h2 className="text-xl font-semibold">
+            {tab === "pending"
+              ? "No churches waiting for approval"
+              : tab === "approved"
+                ? "No approved churches yet"
+                : "No other churches"}
+          </h2>
+          <ButtonLink href="/onboarding" variant="secondary">
+            Add a church
+          </ButtonLink>
+        </section>
+      )}
     </PlatformShell>
   );
 }

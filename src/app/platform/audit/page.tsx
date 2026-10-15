@@ -1,17 +1,9 @@
 import { PlatformShell } from "@/components/shells";
-import { Card, PageHeader } from "@/components/ui";
-import { auditLogs } from "@/lib/data";
-
-export default function PlatformAuditPage() {
-  return (
-    <PlatformShell>
-      <PageHeader title="Platform audit trail" description="Administrative events are append-only in the database model and not editable through ordinary user interfaces." />
-      <Card className="mt-8">
-        <table className="w-full text-left text-sm">
-          <thead className="text-muted"><tr><th className="py-2">Action</th><th>Actor</th><th>Entity</th><th>Result</th><th>Time</th></tr></thead>
-          <tbody>{auditLogs.map((log) => <tr key={log.id} className="border-t border-border"><td className="py-3">{log.action}</td><td>{log.actorName}</td><td>{log.entityType}</td><td>{log.result}</td><td>{new Date(log.createdAt).toLocaleString()}</td></tr>)}</tbody>
-        </table>
-      </Card>
-    </PlatformShell>
-  );
+import { PageHeader } from "@/components/ui";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
+import { getVisibleTenants } from "@/lib/tenant-store";
+export default async function AuditPage() {
+  const tenants = await getVisibleTenants();
+  const { data, error } = tenants.length ? await getSupabaseAdmin().from("audit_logs").select("id,action,reason,created_at,tenant_id").eq("entity_type", "tenant").in("tenant_id", tenants.map(tenant => tenant.id)).order("created_at", { ascending: false }).limit(100) : { data: [], error: null };
+  return <PlatformShell><PageHeader title="Church review history" />{error ? <p role="alert" className="mt-6 text-danger">Review history could not be loaded.</p> : <ul className="mt-6 divide-y divide-border">{data?.map(log => <li key={log.id} className="py-4"><p className="font-medium">{tenants.find(tenant => tenant.id === log.tenant_id)?.publicName}</p><p className="text-sm">{log.action.replaceAll(".", " ").replaceAll("_", " ")}</p><p className="text-sm text-muted">{new Date(log.created_at).toLocaleString()}{log.reason ? ` · ${log.reason}` : ""}</p></li>)}{!data?.length ? <li className="py-6 text-muted">No church decisions recorded yet.</li> : null}</ul>}</PlatformShell>;
 }
