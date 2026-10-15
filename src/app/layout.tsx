@@ -16,6 +16,11 @@ export const metadata: Metadata = {
   title: "KingdomFlow",
   description:
     "A secure, denomination-neutral ministry operating system foundation.",
+  icons: {
+    icon: [{ url: "/kingdom-flow-logo.png", type: "image/png", sizes: "1024x1024" }],
+    shortcut: "/kingdom-flow-logo.png",
+    apple: "/kingdom-flow-logo.png",
+  },
 };
 
 export default function RootLayout({

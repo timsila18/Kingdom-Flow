@@ -11,7 +11,6 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: "#caa85d",
     icons: [
       { src: "/kingdom-flow-logo.png", sizes: "1024x1024", type: "image/png" },
-      { src: "/icon.svg", sizes: "any", type: "image/svg+xml" },
     ],
   };
 }
